@@ -379,7 +379,7 @@ export default function UXDesignStudio() {
         </div>
 
         {/* Wireframing & User Flow Section */}
-        <div className="py-16 px-4 sm:px-6 lg:px-8 bg-black rounded-tl-3xl">
+        <div className="py-16 px-4 sm:px-6 lg:px-8 bg-black rounded-t-3xl">
           <div className="max-w-7xl mx-auto">
             <div className="px-8">
               <div className="grid lg:grid-cols-2 gap-8 items-stretch">
