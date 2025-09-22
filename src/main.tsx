@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/globals.css';
 import Home from './routes/Home';
+import Services from './routes/Services';
 
 const router = createBrowserRouter([
   { path: '/', element: <Home /> },
+  { path: '/services', element: <Services /> }, // Assuming Home handles services section
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
