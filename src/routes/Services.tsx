@@ -14,6 +14,13 @@ import {
     User,
     FileText
 } from 'lucide-react'
+import uiuxWorkflowImg from '../images/UiUx-workflow.png';
+import javascriptWorkflowImg from '../images/javascript-workflow.png.png';
+import pythonWorkflowImg from '../images/python-workflow.png';
+import mobileAppWorkflowImg from '../images/mobile-app-workflow.png';
+import ecommerceWorkflowImg from '../images/ecomerce-workflow.png';
+import noCodeWorkflowImg from '../images/node-code-workflow.png';
+
 
 /**
  * Landing page composition.
@@ -23,10 +30,10 @@ export default function Services() {
         // You can customize this navigation logic based on your routing setup
         // For example, using React Router:
         // navigate(`/services/${sectionName}`);
-        
+
         // Or using Next.js router:
         // router.push(`/services/${sectionName}`);
-        
+
         // For now, using window.location (replace with your preferred routing method)
         window.location.href = `/services/${sectionName.toLowerCase().replace(/\s+/g, '-')}`;
     };
@@ -58,7 +65,7 @@ export default function Services() {
                     </section>
 
                     {/* UI/UX Design Workflow Section */}
-                    <section className="py-16 px-6 cursor-pointer transition-all duration-300 " onClick={() => handleSectionClick('UI/UX Design Workflow')}>
+                    <section className="py-16 px-6 cursor-pointer transition-all duration-300 " onClick={() => handleSectionClick('UiUx-workflow')}>
                         <div className="max-w-7xl mx-auto">
 
                             {/* Content Grid */}
@@ -96,11 +103,11 @@ export default function Services() {
                                     <div className="relative rounded-3xl overflow-hidden ">
                                         {/* Main Background Image */}
                                         <img
-                                            src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop&crop=center"
+                                            src={uiuxWorkflowImg}
                                             alt="UI/UX Design Workflow"
                                             className="w-full h-full object-cover transform transition-transform duration-[2000ms] ease-in-out hover:scale-125"
                                         />
-                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-gray-100 rounded-tl-xl">
+                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-white rounded-tl-xl">
                                         </div>
 
                                     </div>
@@ -121,11 +128,11 @@ export default function Services() {
                                     <div className="relative rounded-3xl overflow-hidden ">
                                         {/* Main Background Image */}
                                         <img
-                                            src="https://images.unsplash.com/photo-1518773553398-650c184e0bb3?w=600&h=400&fit=crop&crop=center"
+                                            src={javascriptWorkflowImg}
                                             alt="JavaScript Workflow"
                                             className="w-full h-full object-cover transform transition-transform duration-[2000ms] ease-in-out hover:scale-125"
                                         />
-                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-gray-100 rounded-tl-xl">
+                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-white rounded-tl-xl">
                                         </div>
 
                                     </div>
@@ -201,18 +208,19 @@ export default function Services() {
                                     <div className="relative rounded-3xl overflow-hidden ">
                                         {/* Main Background Image */}
                                         <img
-                                            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop&crop=center"
+                                            src={pythonWorkflowImg}
                                             alt="Python Workflow"
                                             className="w-full h-full object-cover transform transition-transform duration-[2000ms] ease-in-out hover:scale-125"
                                         />
-                                        <div className="absolute top-0 left-0 w-[95px] h-[60px] bg-gray-100 rounded-tl-xl">
+                                        <div className="absolute top-0 left-0 w-[95px] h-[60px] bg-white rounded-br-xl">
                                         </div>
 
                                     </div>
                                     {/* Corner box - now properly clipped with the container */}
                                     <div className="absolute top-0 left-0 h-12 w-20 bg-violet-600 rounded-lg p-4 shadow-lg z-10">
                                     </div>
-                                </div>                            </div>
+                                </div>    
+                            </div>
                         </div>
                     </section>
 
@@ -225,11 +233,11 @@ export default function Services() {
                                     <div className="relative rounded-3xl overflow-hidden ">
                                         {/* Main Background Image */}
                                         <img
-                                            src="https://kms-solutions.asia/wp-content/uploads/mobile-application-development-lifecycle-5-key-phases.jpg"
+                                            src={mobileAppWorkflowImg}
                                             alt="Mobile App Development Workflow"
                                             className="w-full h-full object-cover transform transition-transform duration-[2000ms] ease-in-out hover:scale-125"
                                         />
-                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-gray-100 rounded-tl-xl">
+                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-white rounded-tl-xl">
                                         </div>
 
                                     </div>
@@ -305,11 +313,11 @@ export default function Services() {
                                     <div className="relative rounded-3xl overflow-hidden ">
                                         {/* Main Background Image */}
                                         <img
-                                            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop&crop=center"
+                                            src={ecommerceWorkflowImg}
                                             alt="Ecommerce Workflow"
                                             className="w-full h-full object-cover transform transition-transform duration-[2000ms] ease-in-out hover:scale-125"
                                         />
-                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-gray-100 rounded-tl-xl">
+                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-white rounded-tl-xl">
                                         </div>
 
                                     </div>
@@ -330,11 +338,11 @@ export default function Services() {
                                     <div className="relative rounded-3xl overflow-hidden ">
                                         {/* Main Background Image */}
                                         <img
-                                            src="https://razorse.com/blog/wp-content/uploads/2023/02/Image3.png"
+                                            src={noCodeWorkflowImg}
                                             alt="No Code Workflow"
                                             className="w-full h-full object-cover transform transition-transform duration-[2000ms] ease-in-out hover:scale-125"
                                         />
-                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-gray-100 rounded-tl-xl">
+                                        <div className="absolute bottom-0 right-0 w-[95px] h-[60px] bg-white rounded-tl-xl">
                                         </div>
 
                                     </div>
