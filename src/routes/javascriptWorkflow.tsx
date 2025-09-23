@@ -35,7 +35,7 @@ import project03 from '../images/uiux-project-03.png';
 
 import { motion } from "framer-motion";
 
-export default function UXDesignStudio() {
+export default function JavascriptWorkflow() {
 
   // Reusable row component
   const Row = ({ direction = "left" }) => {

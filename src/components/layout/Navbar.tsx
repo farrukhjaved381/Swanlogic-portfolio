@@ -5,7 +5,7 @@ export function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   const links = [
-    { label: "Home", href: "#home", withStar: true },
+    { label: "Home", href: "/home", withStar: true },
     { label: "Our Services", href: "/services" },
     { label: "Portfolio", href: "/portfolio" },
     { label: "Quotation", href: "/quote" },
