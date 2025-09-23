@@ -45,6 +45,7 @@ export default function PythonWorkflow() {
         animate={{ x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"] }}
         transition={{ repeat: Infinity, duration: 12, ease: "linear" }} // ⚡ faster (was 15s, now 12s)
       >
+        
         <div className="flex items-center gap-14">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
