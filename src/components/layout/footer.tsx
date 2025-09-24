@@ -1,20 +1,46 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Phone, Mail, MapPin } from "@/components/icons"
+import { Facebook, Instagram, X, Linkedin } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="mx-4 mb-4 rounded-t-3xl bg-black text-white">
+    <footer className="mx-10 mb-4 rounded-t-3xl bg-black text-white relative">
+       {/* FOoter right design */}
+                <div className="absolute bg-white z-10 -top-4 -right-4 rounded-3xl p-2 w-[650px] h-16"></div>
+
+        
+        {/* social links */}
+        <div className="absolute bg-white z-10 -top-4 -left-2 rounded-3xl p-2 ">
+          <div className="items-center p-2 space-y-5">
+            <a href="#" aria-label="Facebook" className="grid h-12 w-12  place-items-center rounded-full bg-purple-500 hover:bg-black/20">
+              <Facebook className="h-6 w-6 text-white m-2" />
+            </a>
+            <a href="#" aria-label="Instagram" className="grid h-12 w-12  place-items-center rounded-full bg-purple-500 hover:bg-black/20">
+              <Instagram className="h-6 w-6 text-white m-2" />
+            </a>
+            <a href="#" aria-label="Twitter/X" className="grid h-12 w-12  place-items-center rounded-full bg-purple-500 hover:bg-black/20">
+              <X className="h-6 w-6 text-white m-2" />
+            </a>
+            <a href="#" aria-label="LinkedIn" className="grid h-12 w-12  place-items-center rounded-full bg-purple-500 hover:bg-black/20">
+              <Linkedin className="h-6 w-6 text-white m-2" />
+            </a>
+          </div>
+        </div>
       <div className="container mx-auto px-8 py-12">
+
+        
+
+       
         {/* Top notification bar */}
 
-        <div className="mb-12 grid gap-8 lg:grid-cols-4">
+        <div className="mb-12 flex flex-col lg:flex-row justify-between items-center rounded-2xl p-6">
           {/* Placeholder column for spacing/alignment */}
           <div className="hidden lg:block" />
 
           {/* Explore Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6">Explore</h3>
-            <ul className="space-y-3" style={{ color: '#696969' }}>
+            <h3 className="text-5xl text-white font-bold mb-6">Explore</h3>
+            <ul className="space-y-4" style={{ color: '#696969' }}>
               <li>
                 <a href="#" className="hover:text-white transition-colors">
                   Home
@@ -45,7 +71,7 @@ export function Footer() {
 
           {/* Useful Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6">Useful Links</h3>
+            <h3 className="text-5xl text-white font-bold mb-6">Useful Links</h3>
             <ul className="space-y-3" style={{ color: '#696969' }}>
               <li>
                 <a href="#" className="hover:text-white transition-colors">
@@ -72,7 +98,7 @@ export function Footer() {
 
           {/* Get In Touch */}
           <div>
-            <h3 className="text-xl font-bold mb-6">Get In Touch</h3>
+            <h3 className="text-5xl text-white font-bold mb-6">Get In Touch</h3>
             <div className="space-y-4 text-gray-300">
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-lime-400" />
@@ -94,7 +120,7 @@ export function Footer() {
         <div className="border-t border-gray-800 pt-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             <div>
-              <h2 className="text-3xl font-bold mb-2 font-rf-dewi">Where Quotes Meet Purpose.</h2>
+              <h2 className="text-3xl text-white font-bold mb-2 font-rf-dewi">Where Quotes Meet Purpose.</h2>
             </div>
             <Button className="bg-lime-400 hover:bg-lime-500 text-black font-semibold">
               Get A Quote
@@ -110,21 +136,7 @@ export function Footer() {
             </div>
             <span>All Rights Reserved</span>
 
-            {/* Social icons bottom-right */}
-            <div className="absolute right-0 -top-12 hidden gap-3 lg:flex">
-              <a href="#" aria-label="Facebook" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                <img src="/facebook.svg" alt="Facebook" className="h-5 w-5" />
-              </a>
-              <a href="#" aria-label="Instagram" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                <img src="/instagram.svg" alt="Instagram" className="h-5 w-5" />
-              </a>
-              <a href="#" aria-label="Twitter/X" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                <img src="/twitter.svg" alt="X (Twitter)" className="h-5 w-5" />
-              </a>
-              <a href="#" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full bg-white/10 hover:bg-white/20">
-                <img src="/linkedin.svg" alt="LinkedIn" className="h-5 w-5" />
-              </a>
-            </div>
+           
           </div>
         </div>
       </div>

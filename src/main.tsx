@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import './styles/globals.css';
 import Home from './routes/Home';
 import Services from './routes/Services';
@@ -12,21 +13,64 @@ import MobileAppWorkflow from './routes/mobile-appWorkflow';
 import EcommerceWorkflow from './routes/ecommerceWorkflow';
 import NoCodeWorkflow from './routes/no-codeWorkflow';
 import BrandingPortfolio from './routes/BrandingPortfolio';
+import FurnitureShowcase from './routes/FurniturePortfolio';
+import WorkplaceConsultancy from './routes/WorkplaceConsultancy';
+import RedefneGlobalTalent from './routes/RedefiningTalent'
+import DigitalPresence from './routes/RefreshingDigitalPresence';
+import CaseStudy from './routes/FurnitureCaseStudy';
 
+// Layout component with Framer Motion transitions
+function Layout() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    // Smooth scroll to top on route change
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+
+  // Page transition settings
+  const pageTransition = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 },
+    transition: { duration: 0.4, ease: 'easeInOut' }
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        {...pageTransition}
+      >
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 const router = createBrowserRouter([
-  { path: '/', element: <Home /> },
-  { path: '/home', element: <Home /> },
-  { path: '/services', element: <Services /> }, // Assuming Home handles services section
-  { path: '/services/UiUx-workflow', element: <UXDesignStudio /> },
-  { path: '/services/javascript-workflow', element: <JavascriptWorkflow /> },
-  { path: '/services/mobile-app', element: <MobileAppWorkflow /> },
-  { path: '/services/ecommerce', element: <EcommerceWorkflow /> },
-  { path: '/services/no-code-workflow', element: <NoCodeWorkflow /> },
-  { path: '/services/python-workflow', element: <PythonWorkflow /> },
-  { path: '/portfolio', element: <PortfolioShowcase/> }, // Placeholder
-  { path: '/portfolio/a-workplace-for-branding-portfolio', element: <BrandingPortfolio /> },
-
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'home', element: <Home /> },
+      { path: 'services', element: <Services /> },
+      { path: 'services/UiUx-workflow', element: <UXDesignStudio /> },
+      { path: 'services/javascript-workflow', element: <JavascriptWorkflow /> },
+      { path: 'services/mobile-app', element: <MobileAppWorkflow /> },
+      { path: 'services/ecommerce', element: <EcommerceWorkflow /> },
+      { path: 'services/no-code-workflow', element: <NoCodeWorkflow /> },
+      { path: 'services/python-workflow', element: <PythonWorkflow /> },
+      { path: 'portfolio', element: <PortfolioShowcase /> },
+      { path: 'portfolio/branding-portfolio', element: <BrandingPortfolio /> },
+      { path: 'portfolio/furniture-design', element: <FurnitureShowcase /> },
+      { path: 'portfolio/workplace-consultancy', element: <WorkplaceConsultancy /> },
+      { path: 'portfolio/global-talent-group', element: <RedefneGlobalTalent /> },
+      { path: 'portfolio/digital-presence', element: <DigitalPresence /> },
+      { path: 'portfolio/furniture-design-case-study', element: <CaseStudy /> },
+    ]
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

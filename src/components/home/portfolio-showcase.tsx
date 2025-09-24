@@ -1,73 +1,174 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from "@/components/icons"
+import Project01 from '../../images/uiux-project-01.png'
+import Project02 from '../../images/uiux-project 02.png'
+import Project03 from '../../images/uiux-project-03.png'
+import Project04 from '../../images/uiux-project-04.png'
 
 export function PortfolioShowcase() {
+  const navigate = useNavigate();
+
+  const portfolioItems = [
+    {
+      image: Project01,
+      title: "Refreshing Gary Neville's Digital Presence",
+      year: "2025",
+      client: "Gary Neville"
+    },
+    {
+      image: Project02,
+      title: "Driving Innovative Growth",
+      year: "2025",
+      client: "Gary Neville"
+    },
+    {
+      image: Project03,
+      title: "A workplace consultancy creating inspiring environments",
+      year: "2025",
+      client: "Gary Neville"
+    },
+    {
+      image: Project04,
+      title: "Excellence in Digital Marketing Solutions",
+      year: "2025",
+      client: "Gary Neville"
+    }
+  ];
+
+  const handleItemClick = (item) => {
+    const slug = item.url.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    navigate(`/portfolio/${slug}`);
+  };
+
   return (
-    <section id="projects" className="py-20 px-4 max-w-7xl mx-auto">
-      <div className="text-left mb-12">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4 font-rf-dewi">Take A Look At Our Projects</h2>
+    <section id="projects" className="py-20 px-4 max-w-7xl mx-auto relative">
+      <div className="text-right absolute right-3 mb-12">
+        <h2 className="text-5xl font-bold text-gray-900 mb-4 font-rf-dewi">Take A Look At Our Projects</h2>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Large Featured Project */}
-        <div className="relative overflow-hidden rounded-2xl bg-gray-900 p-8 text-white">
-          <div className="text-sm text-gray-400 mb-4">
-            <p>2025 • Gary Neville</p>
+      {/* Mobile: Single column layout */}
+      <div className="block sm:hidden space-y-16">
+        {portfolioItems.map((item, index) => (
+          <div key={index} className="group relative overflow-hidden">
+            <div className="relative h-[350px] w-full perspective-1000 rounded-3xl overflow-hidden">
+              <img 
+                src={item.image}
+                alt="Portfolio Item"
+                className="h-full w-full object-cover transform rotate-x-6 shadow-xl rounded-3xl group-hover:scale-105 transition-all duration-500"
+              />
+            </div>
+            <div className="mt-6 space-y-2">
+              <p className="text-gray-600 text-sm">
+                {item.year} • {item.client}
+              </p>
+              <h3 className="text-gray-900 text-2xl font-bold tracking-tight leading-tight">
+                {item.title}
+              </h3>
+            </div>
           </div>
-          <h3 className="text-3xl font-bold mb-8 font-rf-dewi">Refreshing Gary Neville's Digital Presence</h3>
+        ))}
+      </div>
 
-          {/* Main featured image */}
-          <div className="mb-6">
-            <img src="/image 2.png" alt="Project hero" className="w-full h-48 object-cover rounded-lg" />
+      {/* Tablet: Single column with larger cards */}
+      <div className="hidden sm:block lg:hidden space-y-20">
+        {portfolioItems.map((item, index) => (
+          <div key={index} className="group relative overflow-hidden transform hover:-translate-y-2 transition-all duration-500 ease-in-out">
+            <div className="relative h-[450px] w-full perspective-1000 rounded-3xl overflow-hidden">
+              <img 
+                src={item.image}
+                alt="Portfolio Item"
+                className="h-full w-full object-cover transform rotate-x-8 shadow-2xl rounded-3xl group-hover:scale-105 transition-all duration-500"
+              />
+            </div>
+            <div className="mt-8 space-y-3 max-w-2xl">
+              <p className="text-gray-600 text-base">
+                {item.year} • {item.client}
+              </p>
+              <h3 className="text-gray-900 text-4xl font-bold tracking-tight">
+                {item.title}
+              </h3>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: Two-column staggered layout */}
+      <div className="hidden lg:block">
+        {/* Row 1 */}
+        <div className="flex gap-8 mb-20 xl:mb-28">
+          <div className="group relative overflow-hidden w-1/2">
+            <div className="relative h-[400px] xl:h-[500px] w-full perspective-1000 rounded-3xl overflow-hidden">
+              <img 
+                src={portfolioItems[0].image}
+                alt="Portfolio Item"
+                className="h-full w-full object-cover transform rotate-x-12 shadow-2xl rounded-3xl group-hover:scale-105 transition-all duration-500"
+              />
+            </div>
+            <div className="mt-6 xl:mt-8 space-y-3">
+              <p className="text-gray-600 text-base">
+                {portfolioItems[0].year} • {portfolioItems[0].client}
+              </p>
+              <h3 className="text-gray-900 text-3xl xl:text-5xl font-bold tracking-tight">
+                {portfolioItems[0].title}
+              </h3>
+            </div>
           </div>
 
-          {/* Bottom row images */}
-          <div className="grid grid-cols-2 gap-4">
-            <img src="/image 3.png" alt="Project detail 1" className="w-full h-24 object-cover rounded-lg" />
-            <img src="/image 4.png" alt="Project detail 2" className="w-full h-24 object-cover rounded-lg" />
+          <div className="group relative overflow-hidden top-32 xl:top-40 w-1/2">
+            <div className="relative h-[400px] xl:h-[500px] w-full perspective-1000 rounded-3xl overflow-hidden">
+              <img 
+                src={portfolioItems[1].image}
+                alt="Portfolio Item"
+                className="h-full w-full object-cover transform rotate-x-12 shadow-2xl rounded-3xl group-hover:scale-105 transition-all duration-500"
+              />
+            </div>
+            <div className="mt-6 xl:mt-8 space-y-3">
+              <p className="text-gray-600 text-base">
+                {portfolioItems[1].year} • {portfolioItems[1].client}
+              </p>
+              <h3 className="text-gray-900 text-3xl xl:text-5xl font-bold tracking-tight">
+                {portfolioItems[1].title}
+              </h3>
+            </div>
           </div>
         </div>
 
-        {/* Right side stacked projects */}
-        <div className="space-y-6">
-          {/* Innovative Growth Project */}
-          <div className="relative bg-white rounded-2xl p-8 border border-gray-200">
-            <div className="text-sm text-gray-600 mb-4">
-              <p>2025 • Gary Neville</p>
+        {/* Row 2 */}
+        <div className="flex gap-8 mb-20 xl:mb-28">
+          <div className="group relative overflow-hidden w-1/2">
+            <div className="relative h-[400px] xl:h-[500px] w-full perspective-1000 rounded-3xl overflow-hidden">
+              <img 
+                src={portfolioItems[2].image}
+                alt="Portfolio Item"
+                className="h-full w-full object-cover transform rotate-x-12 shadow-2xl rounded-3xl group-hover:scale-105 transition-all duration-500"
+              />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 font-rf-dewi">Driving Innovative Growth</h3>
-            <div className="absolute top-4 right-4">
-              <img src="/image 4.png" alt="Business interface" className="w-28 h-20 object-cover rounded-lg" />
-            </div>
-            <div className="absolute bottom-4 right-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center">
-              <ArrowUpRight className="h-5 w-5 text-black" />
+            <div className="mt-6 xl:mt-8 space-y-3">
+              <p className="text-gray-600 text-base">
+                {portfolioItems[2].year} • {portfolioItems[2].client}
+              </p>
+              <h3 className="text-gray-900 text-3xl xl:text-5xl font-bold tracking-tight">
+                {portfolioItems[2].title}
+              </h3>
             </div>
           </div>
 
-          {/* Digital Marketing Project */}
-          <div className="relative bg-gradient-to-br from-green-800 to-green-900 rounded-2xl p-8 text-white">
-            <div className="text-sm text-green-300 mb-4">
-              <p>2025 • Gary Neville</p>
+          <div className="group relative overflow-hidden top-32 xl:top-40 w-1/2">
+            <div className="relative h-[400px] xl:h-[500px] w-full perspective-1000 rounded-3xl overflow-hidden">
+              <img 
+                src={portfolioItems[3].image}
+                alt="Portfolio Item"
+                className="h-full w-full object-cover transform rotate-x-12 shadow-2xl rounded-3xl group-hover:scale-105 transition-all duration-500"
+              />
             </div>
-            <h3 className="text-xl font-bold mb-4 font-rf-dewi">
-              Excellence in Your Business with Innovative Digital Marketing Solutions
-            </h3>
-            <div className="flex items-center gap-8 text-sm">
-              <div>
-                <p className="text-2xl font-bold font-rf-dewi">3.4k</p>
-                <p className="text-green-300">Projects</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold font-rf-dewi">85k</p>
-                <p className="text-green-300">Experts</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold font-rf-dewi">180k</p>
-                <p className="text-green-300">Brands</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold font-rf-dewi">8.5k</p>
-                <p className="text-green-300">Success</p>
-              </div>
+            <div className="mt-6 xl:mt-8 space-y-3">
+              <p className="text-gray-600 text-base">
+                {portfolioItems[3].year} • {portfolioItems[3].client}
+              </p>
+              <h3 className="text-gray-900 text-3xl xl:text-5xl font-bold tracking-tight">
+                {portfolioItems[3].title}
+              </h3>
             </div>
           </div>
         </div>

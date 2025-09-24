@@ -31,6 +31,7 @@ import uiuxWorkflow09 from '../images/uiux-11.png';
 import project01 from '../images/uiux-project-01.png';
 import project02 from '../images/uiux-project 02.png';
 import project03 from '../images/uiux-project-03.png';
+import project04 from '../images/uiux-project-04.png';
 
 
 import { motion } from "framer-motion";
@@ -132,16 +133,9 @@ export default function UXDesignStudio() {
       subtitle: "Driving Innovative Growth",
       year: "2025",
       author: "Gary Neville",
-      imageUrl: project02  // No curly braces
+      imageUrl: project04  // No curly braces
     },
-    {
-      id: 5,
-      title: "A Workplace Consultancy Creating Inspiring Environments",
-      subtitle: "Brand, Design & Development Agency",
-      year: "2025",
-      author: "Gary Neville",
-      imageUrl: project01  // No curly braces; fixed variable name
-    },
+   
     // Add more projects as needed
   ];
 

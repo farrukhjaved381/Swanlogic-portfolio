@@ -28,7 +28,7 @@ export default function Home() {
 
         {/* Projects showcase matching the design */}
         <PortfolioShowcase />
-        <PortfolioGrid />
+        {/* <PortfolioGrid /> */}
 
         {/* Services ring section on dark background */}
         <ServicesSection />

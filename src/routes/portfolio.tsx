@@ -1,56 +1,65 @@
 import React from 'react';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer as FooterSimple } from '../components/layout/footer';
-import image01 from '../images/portfolio-main-01.png'
-import image02 from '../images/portfolio-main-02.png'
-import image03 from '../images/portfolio-main-03.png'
-import image04 from '../images/portfolio-main-04.png'
-import image05 from '../images/portfolio-main-05.png'
-import image06 from '../images/portfolio-main-06.jpg'
+import image01 from '../images/PortfolioImages/portfolio-main-01.png'
+import image02 from '../images/PortfolioImages/portfolio-main-02.png'
+import image03 from '../images/PortfolioImages/portfolio-main-03.png'
+import image04 from '../images/PortfolioImages/portfolio-main-04.png'
+import image05 from '../images/PortfolioImages/portfolio-main-05.png'
+import image06 from '../images/PortfolioImages/portfolio-main-06.jpg'
+import { useNavigate } from 'react-router-dom';
 
 export default function PortfolioShowcase() {
+  const navigate = useNavigate();
+
   const portfolioItems = [
     {
       image: image01,
+      url : "Branding Portfolio",
       title: "A workplace For Branding Portfolio",
       year: "2025",
       client: "Gary Neville"
     },
     {
       image: image02,
+      url : "Furniture Design",
       title: "Furniture designed to the greatest extent",
       year: "2025",
       client: "Gary Neville"
     },
     {
       image: image03,
+      url : "Workplace Consultancy",
       title: "A workplace consultancy creating inspiring environments",
       year: "2025",
       client: "Gary Neville"
     },
     {
       image: image04,
+      url : "Global Talent Group",
       title: "Redefining a leading global talent group",
       year: "2025",
       client: "Gary Neville"
     },
     {
       image: image05,
+      url : "Digital Presence",
       title: "Refreshing Gary Neville's digital presence",
       year: "2025",
       client: "Gary Neville"
     },
     {
       image: image06,
-      title: "Furniture designed to the greatest extent",
+      url : "Furniture Design Case Study",
+      title: "Furniture designed the greatest extent",
       year: "2025",
       client: "Gary Neville"
     }
   ];
 
   const handleItemClick = (item) => {
-    const slug = item.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-    window.location.href = `/portfolio/${slug}`;
+    const slug = item.url.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    navigate(`/portfolio/${slug}`);
   };
 
   return (

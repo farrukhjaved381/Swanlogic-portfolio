@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer as FooterSimple } from '../components/layout/footer';
 import {
@@ -26,16 +27,12 @@ import noCodeWorkflowImg from '../images/node-code-workflow.png';
  * Landing page composition.
  */
 export default function Services() {
+    const navigate = useNavigate();
+
     const handleSectionClick = (sectionName) => {
-        // You can customize this navigation logic based on your routing setup
-        // For example, using React Router:
-        // navigate(`/services/${sectionName}`);
-
-        // Or using Next.js router:
-        // router.push(`/services/${sectionName}`);
-
-        // For now, using window.location (replace with your preferred routing method)
-        window.location.href = `/services/${sectionName.toLowerCase().replace(/\s+/g, '-')}`;
+        // Use React Router's navigate for smooth page transitions
+        const slug = sectionName.toLowerCase().replace(/\s+/g, '-');
+        navigate(`/services/${slug}`);
     };
 
     return (
