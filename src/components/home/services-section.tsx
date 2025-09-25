@@ -1,112 +1,186 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "@/components/icons";
-import React from "react";
-
-type ServiceKey = "UI/UX" | "Java Script" | "Python" | "Mobile App" | "Ecommerce" | "No-Code";
-
-const serviceCopy: Record<ServiceKey, { title: string; body: string }> = {
-  "UI/UX": {
-    title: "UI/UX",
-    body:
-      "We craft intuitive and engaging user experiences through research, wireframing, and prototyping. The result is beautiful, usable products that convert.",
-  },
-  "Java Script": {
-    title: "JavaScript",
-    body:
-      "From interactive UI to performant SPAs, we build robust frontends using modern JS frameworks and patterns.",
-  },
-  Python: {
-    title: "Python",
-    body:
-      "APIs, automation, and data workflows built with Python to connect your systems and accelerate delivery.",
-  },
-  "Mobile App": {
-    title: "Mobile App",
-    body:
-      "Cross-platform mobile apps with native feel, tailored to your product vision and users’ needs.",
-  },
-  Ecommerce: {
-    title: "Ecommerce",
-    body:
-      "Storefronts that sell — optimized product pages, seamless carts, and secure checkout experiences.",
-  },
-  "No-Code": {
-    title: "No‑Code",
-    body:
-      "Launch fast with Webflow/Shopify/WordPress using sensible automation and scalable foundations.",
-  },
-};
+import React, { useState } from "react";
+import { ArrowUpRight, Code, Smartphone, ShoppingCart, Zap, Palette } from "lucide-react";
+import wheelIcon from "../../assets/home-showcase-icon.svg";
 
 export function ServicesSection() {
-  const [active, setActive] = React.useState<ServiceKey>("UI/UX");
+  const services = [
+    {
+      id: "uiux",
+      label: "UI/UX",
+      icon: Palette,
+      description:
+        "We craft intuitive and engaging user experiences through meticulous research, wireframing, and prototyping. Our process is designed to understand user behavior deeply, ensuring the final product is not only visually appealing but also easy to navigate and highly effective at achieving your business objectives, leading to increased user satisfaction and conversion.",
+      highlights: ["User Research", "Wireframing", "Prototyping", "Visual Design"]
+    },
+    {
+      id: "javascript",
+      label: "JavaScript",
+      icon: Code,
+      description:
+        "Modern front-end & full-stack JavaScript solutions using React, Next.js and Node — performant, accessible and production-ready.",
+      highlights: ["React & Next.js", "Node.js APIs", "Performance Optimization", "Testing"]
+    },
+    {
+      id: "python",
+      label: "Python",
+      icon: Code,
+      description:
+        "Backend systems, APIs and automation built with Python. Clean architecture, tests and deployments that scale.",
+      highlights: ["Django/FastAPI", "Database Design", "API Development", "DevOps"]
+    },
+    {
+      id: "mobile",
+      label: "Mobile App",
+      icon: Smartphone,
+      description:
+        "Native and cross-platform mobile apps focused on UX, performance and native integrations.",
+      highlights: ["React Native", "iOS/Android", "App Store Optimization", "Push Notifications"]
+    },
+    {
+      id: "ecommerce",
+      label: "Ecommerce",
+      icon: ShoppingCart,
+      description:
+        "E-commerce platforms that convert — from UX to checkout optimization and integrations with payment and inventory systems.",
+      highlights: ["Shopify/WooCommerce", "Payment Integration", "Inventory Management", "Analytics"]
+    },
+    {
+      id: "nocode",
+      label: "No-Code",
+      icon: Zap,
+      description:
+        "Rapid prototypes and production apps using no-code/low-code tools to validate ideas fast.",
+      highlights: ["Webflow", "Airtable", "Zapier Automation", "MVP Development"]
+    },
+  ];
 
-  const services: ServiceKey[] = ["UI/UX", "Java Script", "Python", "Mobile App", "Ecommerce", "No-Code"];
+  const [selected, setSelected] = useState(services[0].id);
+  const active = services.find((s) => s.id === selected)!;
 
   return (
-    <section id="services" className="bg-black py-20 text-white">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 flex items-start justify-between gap-6">
-          <h2 className="font-rf-dewi text-4xl font-bold md:text-5xl">Our Services</h2>
-          <div className="flex items-center gap-4">
-            <p className="max-w-md text-gray-300">We design and develop digital experiences that drive growth.</p>
-            <Button className="bg-lime-400 font-semibold text-black hover:bg-lime-500">
-              View All Services
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+    <section className="bg-black text-white py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-16">
+          <h2 className="text-4xl font-bold">Our Services</h2>
+          <p className="text-sm text-gray-400">We design and develop digital experiences that drive growth.</p>
+          <button className="flex items-center gap-2 bg-lime-400 text-black rounded-full px-4 py-2 text-sm font-medium">
+            View All Services <ArrowUpRight className="w-4 h-4" />
+          </button>
         </div>
 
-        <div className="grid items-center gap-8 lg:grid-cols-3">
-          {/* Service Buttons */}
-          <div className="space-y-3">
-            {services.map((service) => (
-              <button
-                key={service}
-                onClick={() => setActive(service)}
-                className={`rounded-full px-6 py-3 font-medium ${
-                  active === service ? "bg-white text-black" : "bg-white/10 text-white hover:bg-white/20"
-                }`}
-                aria-pressed={active === service}
-              >
-                {service}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {/* Service Menu Buttons */}
+          <div className="md:col-span-3 space-y-4">
+            {services.map((service) => {
+              const isActive = selected === service.id;
+              return (
+                <button
+                  key={service.id}
+                  onClick={() => setSelected(service.id)}
+                  className={`w-full text-center py-3 px-4 rounded-full transition-all ${
+                    isActive 
+                      ? "bg-lime-400 text-black font-medium" 
+                      : "bg-white text-black hover:bg-gray-100"
+                  }`}
+                >
+                  {service.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Service Detail Card */}
+          <div className="md:col-span-5 bg-black border border-lime-400/50 rounded-2xl p-8">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="bg-lime-400 p-2 rounded-full">
+                <active.icon className="w-5 h-5 text-black" />
+              </div>
+              <h3 className="text-3xl font-bold">{active.label}</h3>
+            </div>
+            
+            <p className="text-gray-300 mb-8">{active.description}</p>
+            
+            {/* Key Features */}
+            <div className="mb-6">
+              <h4 className="text-sm font-medium uppercase text-gray-400 mb-3">Key Features</h4>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                {active.highlights.map((highlight, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-lime-400 rounded-full"></div>
+                    <span className="text-sm">{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Buttons */}
+            <div className="flex gap-4">
+              <button className="bg-lime-400 text-black rounded-full px-5 py-2 font-medium flex items-center gap-2">
+                Get Started <ArrowUpRight className="w-4 h-4" />
               </button>
-            ))}
-          </div>
-
-          {/* Active Service Card */}
-          <div className="rounded-2xl border-2 border-lime-400 bg-black p-6">
-            <div className="mb-4 flex items-center gap-3">
-              <div className="rounded-lg bg-lime-400 p-2">
-                <svg className="h-6 w-6 text-black" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2 2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7Z" />
-                </svg>
-              </div>
-              <h3 className="font-rf-dewi text-2xl font-bold">{serviceCopy[active].title}</h3>
-            </div>
-            <p className="mb-6 leading-relaxed text-gray-300">{serviceCopy[active].body}</p>
-            <Button variant="outline" className="border-lime-400 bg-transparent text-lime-400 hover:bg-lime-400 hover:text-black">
-              View Details
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Circular infographic */}
-          <div className="relative">
-            <div className="relative mx-auto h-80 w-80">
-              <div className="absolute inset-0 rounded-full border-2 border-gray-700" />
-              <div className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600 text-center leading-[5rem]">
-                SL
-              </div>
-              {/* orbiting items */}
-              <img src="/UX.svg" alt="UX" className="absolute left-1/2 top-0 h-8 w-8 -translate-x-1/2" />
-              <img src="/Code dev.svg" alt="Code" className="absolute right-4 top-6 h-8 w-8" />
-              <img src="/No-Code.svg" alt="No-Code" className="absolute right-0 top-1/2 h-8 w-8 -translate-y-1/2" />
-              <img src="/wordpress.svg" alt="WordPress" className="absolute right-6 bottom-6 h-8 w-8" />
-              <img src="/shopify.svg" alt="Shopify" className="absolute left-1/2 bottom-0 h-8 w-8 -translate-x-1/2" />
-              <img src="/ecomerce.svg" alt="Ecommerce" className="absolute left-6 bottom-6 h-8 w-8" />
+              <button className="border border-gray-700 text-gray-300 rounded-full px-5 py-2">
+                Learn More
+              </button>
             </div>
           </div>
-        </div>
+
+          {/* Service Wheel */}
+          <div className="md:col-span-4 flex justify-center items-center">
+            <div className="relative w-80 h-80">
+              {/* Outer circle */}
+
+                {/* Middle circle */}
+                <div className="relative w-72 h-72 rounded-full border-2 border-white/50 flex justify-center items-center">
+                  {/* Middle circle text */}
+                  <span className="absolute -top-1 left-1/2 transform -translate-x-1/2 text-white text-base font-semibold">
+                    React
+                  </span>
+                  <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-white text-base font-semibold">
+                    Node.js
+                  </span>
+                  <span className="absolute top-1/2 -left-1 transform -translate-y-1/2 -rotate-90 text-white text-base font-semibold">
+                    Django
+                  </span>
+                  <span className="absolute top-1/2 -right-1 transform -translate-y-1/2 rotate-90 text-white text-base font-semibold">
+                    Flutter
+                  </span>
+                  
+                  {/* Inner circle */}
+                  <div className="relative w-52 h-52 rounded-full border-2 border-white/70 flex justify-center items-center">
+                    {/* Inner circle text */}
+                    <span className="absolute -top-0 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
+                      API
+                    </span>
+                    <span className="absolute -bottom-0 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
+                      DB
+                    </span>
+                    <span className="absolute top-1/2 -left-0 transform -translate-y-1/2 -rotate-90 text-white text-lg font-bold">
+                      AWS
+ h                    </span>
+                    <span className="absolute top-1/2 -right-0 transform -translate-y-1/2 rotate-90 text-white text-lg font-bold">
+                      GCP
+                    </span>                
+                    {/* Center circle with enhanced styling */}
+                      <div className="relative w-36 h-36   z-10  rounded-full flex items-center justify-center shadow-lg">
+                    <div className="relative w-32 h-32 rounded-full border bg-purple-500 flex justify-center items-center shadow-2xl">
+                      {/* Icon container */}
+                      <div className="relative z-10  rounded-full flex items-center justify-center shadow-lg">
+                        <img src={wheelIcon} alt="centre-wheel-icon" className=" w-16 h-16 filter drop-shadow-sm" />
+                      </div>
+</div>
+                      {/* Animated pulse ring */}
+                      <div className="absolute inset-0 rounded-full border-2 border-lime-400/30 animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Optional: Rotating animation for the entire wheel */}
+              <div className="absolute inset-0 rounded-full animate-spin-slow opacity-10 border border-dashed border-white"></div>
+            </div>
+          </div>
+
       </div>
     </section>
   );

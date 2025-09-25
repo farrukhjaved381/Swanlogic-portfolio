@@ -18,6 +18,8 @@ import WorkplaceConsultancy from './routes/WorkplaceConsultancy';
 import RedefneGlobalTalent from './routes/RedefiningTalent'
 import DigitalPresence from './routes/RefreshingDigitalPresence';
 import CaseStudy from './routes/FurnitureCaseStudy';
+import QuoteRequestForm from './routes/quoteRequestForm';
+import Contact from './routes/contact';
 
 // Layout component with Framer Motion transitions
 function Layout() {
@@ -69,6 +71,9 @@ const router = createBrowserRouter([
       { path: 'portfolio/global-talent-group', element: <RedefneGlobalTalent /> },
       { path: 'portfolio/digital-presence', element: <DigitalPresence /> },
       { path: 'portfolio/furniture-design-case-study', element: <CaseStudy /> },
+      { path: 'quote', element: <QuoteRequestForm /> },
+      { path: 'contact', element: <Contact /> },
+      
     ]
   }
 ]);
