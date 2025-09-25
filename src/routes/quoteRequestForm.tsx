@@ -680,7 +680,7 @@ export default function QuoteRequestForm() {
                       onKeyPress={handleKeyPress}
                       placeholder="Ask me anything..."
                       className="w-full px-3 py-2 pr-16 rounded-xl border text-gray-700 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 outline-none transition-all text-xs resize-none min-h-[32px] max-h-20"
-                      rows="1"
+                      rows={1}
                       disabled={isTyping}
                     />
                     <div className="absolute right-1 bottom-1 flex items-center gap-1">

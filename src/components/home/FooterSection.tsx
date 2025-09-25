@@ -1,7 +1,7 @@
 import React from 'react';
 
 const exploreLinks = ['Home', 'About Us', 'Our Services', 'Our Team', 'Portfolio'];
-const usefulLinks = ['Privacy Policy', 'Term And Conditions', 'FAQ's', 'Contact Us'];
+const usefulLinks = ['Privacy Policy', 'Term And Conditions', 'FAQ\'s', 'Contact Us'];
 const socialIcons = ['Facebook', 'Instagram', 'Twitter', 'LinkedIn'];
 
 export default function FooterSection() {

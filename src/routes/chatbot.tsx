@@ -277,7 +277,7 @@ const TechGenieChat = () => {
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything about web development, programming, or your projects..."
                 className="w-full px-4 py-3 pr-20 rounded-2xl border text-gray-700 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-sm resize-none min-h-[44px] max-h-32"
-                rows="1"
+                rows={1}
                 disabled={isTyping}
               />
               <div className="absolute right-2 bottom-2 flex items-center gap-1">

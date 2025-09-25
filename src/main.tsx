@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       { path: 'portfolio/digital-presence', element: <DigitalPresence /> },
       { path: 'portfolio/furniture-design-case-study', element: <CaseStudy /> },
       { path: 'quote', element: <QuoteRequestForm /> },
-      { path: 'contact', element: <Contact /> },
+      { path: 'contact', element: <Contact /> }
       
     ]
   }
