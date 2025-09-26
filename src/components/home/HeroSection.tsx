@@ -33,8 +33,8 @@ export function HeroSection() {
         {/* Video within rectangle frame */}
         <div className="relative mt-4 sm:mt-8">
           {/* Desktop Action Buttons - Floating above video */}
-          <div className="hidden sm:flex mt-6 flex-wrap bg-white py-2 sm:py-3 px-4 sm:px-6 w-96 rounded-full items-center gap-2 absolute -top-14 h-16 right-80 z-30 shadow-lg max-w-[calc(100%-16px)] sm:max-w-none"></div>
-          <div className="hidden sm:flex mt-6 flex-wrap  bg-white py-2 sm:py-3 px-4 sm:px-6 lg:px-12 rounded-full rounded-tr-none items-center gap-2 sm:gap-4 absolute -top-4 sm:-top-6 lg:-top-10 left-2 sm:left-4 md:left-12 lg:left-40 z-30 max-w-[calc(100%-16px)] sm:max-w-none">
+          <div className="hidden sm:flex mt-6 flex-wrap  bg-white py-2 sm:py-3 px-4 sm:px-6 w-96 rounded-2xl rounded-tr-none  items-center gap-2 absolute -top-14 h-16 right-80 z-30 shadow-lg max-w-[calc(100%-16px)] sm:max-w-none "></div>
+          <div className="hidden sm:flex mt-6 flex-wrap  bg-white py-2 sm:py-3 px-4 sm:px-6 lg:px-12 rounded-2xl rounded-tr-none items-center gap-2 sm:gap-4 absolute -top-4 sm:-top-6 lg:-top-10 left-2 sm:left-4 md:left-12 lg:left-40 z-30 max-w-[calc(100%-16px)] sm:max-w-none">
             <a
               href="#projects"
               className="inline-flex items-center gap-2 sm:gap-3 rounded-full bg-brand-purple px-3 sm:px-4 lg:px-6 py-2 sm:py-3 font-dewi text-[10px] sm:text-xs lg:text-sm uppercase tracking-[0.15em] sm:tracking-[0.25em] text-white shadow hover:bg-brand-purple/90 transition-colors whitespace-nowrap"
