@@ -33,7 +33,8 @@ export function HeroSection() {
         {/* Video within rectangle frame */}
         <div className="relative mt-4 sm:mt-8">
           {/* Desktop Action Buttons - Floating above video */}
-          <div className="hidden sm:flex mt-6 flex-wrap bg-white py-2 sm:py-3 px-4 sm:px-6 lg:px-12 rounded-full items-center gap-2 sm:gap-4 absolute -top-4 sm:-top-6 lg:-top-10 left-2 sm:left-4 md:left-12 lg:left-48 z-30 shadow-lg max-w-[calc(100%-16px)] sm:max-w-none">
+          <div className="hidden sm:flex mt-6 flex-wrap bg-white py-2 sm:py-3 px-4 sm:px-6 w-96 rounded-full items-center gap-2 absolute -top-14 h-16 right-80 z-30 shadow-lg max-w-[calc(100%-16px)] sm:max-w-none"></div>
+          <div className="hidden sm:flex mt-6 flex-wrap  bg-white py-2 sm:py-3 px-4 sm:px-6 lg:px-12 rounded-full rounded-tr-none items-center gap-2 sm:gap-4 absolute -top-4 sm:-top-6 lg:-top-10 left-2 sm:left-4 md:left-12 lg:left-40 z-30 max-w-[calc(100%-16px)] sm:max-w-none">
             <a
               href="#projects"
               className="inline-flex items-center gap-2 sm:gap-3 rounded-full bg-brand-purple px-3 sm:px-4 lg:px-6 py-2 sm:py-3 font-dewi text-[10px] sm:text-xs lg:text-sm uppercase tracking-[0.15em] sm:tracking-[0.25em] text-white shadow hover:bg-brand-purple/90 transition-colors whitespace-nowrap"
@@ -49,21 +50,20 @@ export function HeroSection() {
             </a>
           </div>
 
-          <div className="relative overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-[28px] bg-black shadow-lg sm:shadow-xl lg:shadow-2xl">
-            {/* Video layer - positioned behind frame */}
-            <div className="relative z-10">
-              <video
-                className="h-[200px] w-full object-cover xs:h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] xl:h-[640px]"
-                src="/video/Neostalgia Design & Webflow Development Agency.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster="/Rectangle 31-2.png"
-              />
-            </div>
-            
-            {/* Frame overlay - positioned on top but with lower opacity to show video through */}
+          {/* ✅ Wrapped video + overlays in one rounded parent */}
+          <div className="relative overflow-hidden rounded-xl sm:rounded-2xl lg:rounded-[28px] shadow-lg sm:shadow-xl lg:shadow-2xl">
+            {/* Video layer */}
+            <video
+              className="h-[200px] w-full object-cover xs:h-[240px] sm:h-[320px] md:h-[420px] lg:h-[520px] xl:h-[640px]"
+              src="/video/Neostalgia Design & Webflow Development Agency.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster="/Rectangle 31-2.png"
+            />
+
+            {/* Frame overlay */}
             <div className="absolute inset-0 z-20 pointer-events-none">
               <img
                 src="/Rectangle.png"
@@ -72,11 +72,11 @@ export function HeroSection() {
               />
             </div>
 
-            {/* Optional: Add a subtle dark overlay for better text contrast if needed */}
-            <div className="absolute inset-0 z-15 bg-black/10"></div>
+            {/* Optional subtle overlay */}
+            <div className="absolute inset-0 bg-black/10 z-10"></div>
           </div>
 
-          {/* Wheel decoration top-right - Hidden on mobile and small tablets */}
+          {/* Wheel decoration */}
           <div className="absolute -top-16 sm:-top-24 lg:-top-32 right-2 sm:right-4 hidden lg:block h-16 w-16 sm:h-20 sm:w-20 lg:h-28 lg:w-28 pointer-events-none">
             <img
               src="/wheel.png"

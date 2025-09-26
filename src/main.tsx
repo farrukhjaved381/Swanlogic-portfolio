@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import './styles/globals.css';
 import Home from './routes/Home';
 import Services from './routes/Services';
@@ -21,7 +20,7 @@ import CaseStudy from './routes/FurnitureCaseStudy';
 import QuoteRequestForm from './routes/quoteRequestForm';
 import Contact from './routes/contact';
 
-// Layout component with Framer Motion transitions
+// Layout component with smooth scroll to top on route change
 function Layout() {
   const location = useLocation();
 
@@ -30,24 +29,7 @@ function Layout() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
 
-  // Page transition settings
-  const pageTransition = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-    transition: { duration: 0.4, ease: 'easeInOut' }
-  };
-
-  return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={location.pathname}
-        {...pageTransition}
-      >
-        <Outlet />
-      </motion.div>
-    </AnimatePresence>
-  );
+  return <Outlet />;
 }
 
 const router = createBrowserRouter([

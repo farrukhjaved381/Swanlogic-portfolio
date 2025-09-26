@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowUpRight, Code, Smartphone, ShoppingCart, Zap, Palette } from "lucide-react";
-import wheelIcon from "../../assets/home-showcase-icon.svg";
+import wheelIcon from "../../assets/serviceCircle.png";
+
 
 export function ServicesSection() {
   const services = [
@@ -58,7 +59,7 @@ export function ServicesSection() {
   const active = services.find((s) => s.id === selected)!;
 
   return (
-    <section className="bg-black text-white py-16 px-4 sm:px-6 lg:px-8">
+    <section className="bg-black text-white py-16 px-4 sm:px-6 lg:px-8 h-[666px] rounded-t-3xl">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-16">
@@ -78,11 +79,10 @@ export function ServicesSection() {
                 <button
                   key={service.id}
                   onClick={() => setSelected(service.id)}
-                  className={`w-full text-center py-3 px-4 rounded-full transition-all ${
-                    isActive 
-                      ? "bg-lime-400 text-black font-medium" 
+                  className={`w-full text-center py-3 px-4 rounded-full transition-all ${isActive
+                      ? "bg-lime-400 text-black font-medium"
                       : "bg-white text-black hover:bg-gray-100"
-                  }`}
+                    }`}
                 >
                   {service.label}
                 </button>
@@ -96,11 +96,11 @@ export function ServicesSection() {
               <div className="bg-lime-400 p-2 rounded-full">
                 <active.icon className="w-5 h-5 text-black" />
               </div>
-              <h3 className="text-3xl font-bold">{active.label}</h3>
+              <h3 className="text-3xl text-white font-bold">{active.label}</h3>
             </div>
-            
+
             <p className="text-gray-300 mb-8">{active.description}</p>
-            
+
             {/* Key Features */}
             <div className="mb-6">
               <h4 className="text-sm font-medium uppercase text-gray-400 mb-3">Key Features</h4>
@@ -113,75 +113,27 @@ export function ServicesSection() {
                 ))}
               </div>
             </div>
-            
+
             {/* Buttons */}
             <div className="flex gap-4">
               <button className="bg-lime-400 text-black rounded-full px-5 py-2 font-medium flex items-center gap-2">
                 Get Started <ArrowUpRight className="w-4 h-4" />
               </button>
-              <button className="border border-gray-700 text-gray-300 rounded-full px-5 py-2">
-                Learn More
-              </button>
+
             </div>
           </div>
 
           {/* Service Wheel */}
           <div className="md:col-span-4 flex justify-center items-center">
-            <div className="relative w-80 h-80">
-              {/* Outer circle */}
+            <img src={wheelIcon} alt="" />
 
-                {/* Middle circle */}
-                <div className="relative w-72 h-72 rounded-full border-2 border-white/50 flex justify-center items-center">
-                  {/* Middle circle text */}
-                  <span className="absolute -top-1 left-1/2 transform -translate-x-1/2 text-white text-base font-semibold">
-                    React
-                  </span>
-                  <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 text-white text-base font-semibold">
-                    Node.js
-                  </span>
-                  <span className="absolute top-1/2 -left-1 transform -translate-y-1/2 -rotate-90 text-white text-base font-semibold">
-                    Django
-                  </span>
-                  <span className="absolute top-1/2 -right-1 transform -translate-y-1/2 rotate-90 text-white text-base font-semibold">
-                    Flutter
-                  </span>
-                  
-                  {/* Inner circle */}
-                  <div className="relative w-52 h-52 rounded-full border-2 border-white/70 flex justify-center items-center">
-                    {/* Inner circle text */}
-                    <span className="absolute -top-0 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
-                      API
-                    </span>
-                    <span className="absolute -bottom-0 left-1/2 transform -translate-x-1/2 text-white text-lg font-bold">
-                      DB
-                    </span>
-                    <span className="absolute top-1/2 -left-0 transform -translate-y-1/2 -rotate-90 text-white text-lg font-bold">
-                      AWS
- h                    </span>
-                    <span className="absolute top-1/2 -right-0 transform -translate-y-1/2 rotate-90 text-white text-lg font-bold">
-                      GCP
-                    </span>                
-                    {/* Center circle with enhanced styling */}
-                      <div className="relative w-36 h-36   z-10  rounded-full flex items-center justify-center shadow-lg">
-                    <div className="relative w-32 h-32 rounded-full border bg-purple-500 flex justify-center items-center shadow-2xl">
-                      {/* Icon container */}
-                      <div className="relative z-10  rounded-full flex items-center justify-center shadow-lg">
-                        <img src={wheelIcon} alt="centre-wheel-icon" className=" w-16 h-16 filter drop-shadow-sm" />
-                      </div>
-</div>
-                      {/* Animated pulse ring */}
-                      <div className="absolute inset-0 rounded-full border-2 border-lime-400/30 animate-pulse"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Optional: Rotating animation for the entire wheel */}
-              <div className="absolute inset-0 rounded-full animate-spin-slow opacity-10 border border-dashed border-white"></div>
-            </div>
           </div>
+        </div>
 
       </div>
     </section>
   );
 }
+
+
+

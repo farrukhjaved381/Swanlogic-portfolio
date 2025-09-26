@@ -6,10 +6,10 @@ export function Footer() {
   return (
     <footer className="mx-2 sm:mx-4 lg:mx-10 mb-2 sm:mb-4 rounded-t-xl sm:rounded-t-2xl lg:rounded-t-3xl bg-black text-white relative overflow-hidden">
        {/* Footer right design - Hidden on mobile and tablets */}
-       <div className="absolute bg-white z-10 -top-2 sm:-top-4 lg:-top-5 -right-2 sm:-right-1 rounded-xl sm:rounded-2xl lg:rounded-3xl p-1 sm:p-2 w-32 sm:w-64 lg:w-96 xl:w-[650px] h-6 sm:h-8 lg:h-12 xl:h-16 hidden lg:block"></div>
+       <div className="absolute bg-white z-10 -top-2 sm:-top-4 lg:-top-4 -right-6 sm:-right-1 rounded-xl sm:rounded-2xl lg:rounded-3xl p-1 sm:p-2 w-32 sm:w-64 lg:w-96 xl:w-[650px] h-6 sm:h-8 lg:h-12 xl:h-16 hidden lg:block"></div>
 
         {/* Social links - Fully responsive positioning */}
-        <div className="absolute bg-white z-20 -top-1 sm:-top-2 lg:-top-4 -left-1 sm:-left-2 rounded-lg sm:rounded-xl lg:rounded-2xl xl:rounded-3xl p-1 sm:p-2">
+        <div className="absolute bg-white z-20 -top-1 sm:-top-2 lg:-top-4  lg:-left-4 sm:-left-2 rounded-lg sm:rounded-xl lg:rounded-2xl xl:rounded-3xl p-1 sm:p-2">
           <div className="flex lg:flex-col items-center lg:items-start gap-1 sm:gap-2 lg:gap-3 xl:gap-5 p-1 sm:p-2">
             <a href="#" aria-label="Facebook" className="grid h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 xl:h-12 xl:w-12 place-items-center rounded-full bg-purple-500 hover:bg-purple-600 transition-colors">
               <Facebook className="h-2.5 w-2.5 sm:h-3 sm:w-3 lg:h-4 lg:w-4 xl:h-6 xl:w-6 text-white" />
@@ -26,9 +26,9 @@ export function Footer() {
           </div>
         </div>
 
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-10 lg:py-12">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-20 py-6 sm:py-20 md:py-10 lg:py-14">
         {/* Main content section */}
-        <div className="mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+        <div className="mb-6 sm:mb-8 sm:mt-20 md:mb-10 lg:mb-12">
           {/* Links Container - Fully responsive grid */}
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16">
             {/* Explore Links */}
