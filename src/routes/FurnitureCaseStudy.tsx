@@ -12,7 +12,7 @@ import slider01 from '../images/PortfolioImages/page06/portfolio-slider-01.png';
 import slider02 from '../images/PortfolioImages/page06/portfolio-slider-02.png';
 import slider03 from '../images/PortfolioImages/page06/portfolio-slider-03.png';
 import Responsiveness01 from '../images/PortfolioImages/page06/portfolio-responsiveness-01.png';  
-import Responsiveness02 from '../images/PortfolioImages/page06/portfolio-responsiceness-02.png';
+import Responsiveness02 from '../images/PortfolioImages/page06/portfolio-responsiveness-02.png';
 import Responsiveness03 from '../images/PortfolioImages/page06/portfolio-responsiveness-03.png';
 import project01 from '../images/uiux-project-01.png';
 import project02 from '../images/uiux-project 02.png';

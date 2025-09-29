@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { User, FileText, DollarSign, CheckSquare, Check, X, MessageCircle, Settings, Send, Smile, Paperclip, Bot } from 'lucide-react'
+import { User, FileText, DollarSign, CheckSquare, Check, X, MessageCircle, Settings, Send, Smile, Paperclip, Bot, Upload } from 'lucide-react'
 import { Navbar } from '../components/layout/Navbar';
 import { Footer as FooterSimple } from '../components/layout/footer';
 import uiuxWorkflowBannerImg from '../images/quotationPage.png';
@@ -21,10 +21,12 @@ export default function QuoteRequestForm() {
       nda: false,
       scheduleCall: false,
       ongoingSupport: false
-    }
+    },
+    files: []
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [dragActive, setDragActive] = useState(false); // Add this missing state
 
   // Chatbot states
   const [showChatbot, setShowChatbot] = useState(false);
@@ -40,7 +42,7 @@ export default function QuoteRequestForm() {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
-  
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -86,7 +88,7 @@ export default function QuoteRequestForm() {
   // Quote form functions
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     if (name.startsWith('additionalPreferences.')) {
       const key = name.split('.')[1];
       setFormData(prev => ({
@@ -107,7 +109,7 @@ export default function QuoteRequestForm() {
   const isFormValid = () => {
     const requiredFields = [
       'name',
-      'email', 
+      'email',
       'phone',
       'serviceType',
       'projectType',
@@ -115,23 +117,23 @@ export default function QuoteRequestForm() {
       'budgetRange',
       'timeline'
     ];
-    
+
     return requiredFields.every(field => formData[field].trim() !== '');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!isFormValid()) {
       alert('Please fill in all required fields.');
       return;
     }
-    
+
     console.log('Form submitted:', formData);
-    
+
     // Show success modal
     setShowModal(true);
-    
+
     // Reset form
     setFormData({
       name: '',
@@ -148,7 +150,8 @@ export default function QuoteRequestForm() {
         nda: false,
         scheduleCall: false,
         ongoingSupport: false
-      }
+      },
+      files: []
     });
   };
 
@@ -183,7 +186,7 @@ export default function QuoteRequestForm() {
         isBot: false,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
-      
+
       setMessages(prev => [...prev, newMessage]);
       setInputValue('');
       setShowEmojiPicker(false);
@@ -223,548 +226,713 @@ export default function QuoteRequestForm() {
     textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
   };
 
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    const files = [...e.dataTransfer.files];
+    setFormData(prev => ({
+      ...prev,
+      files: [...prev.files, ...files]
+    }));
+  };
+
+  const handleFileInput = (e) => {
+    const files = [...e.target.files];
+    setFormData(prev => ({
+      ...prev,
+      files: [...prev.files, ...files]
+    }));
+  };
+
+  const removeFile = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      files: prev.files.filter((_, i) => i !== index)
+    }));
+  };
+
   return (
-   <div className="min-h-screen bg-white">
-         <Navbar />
-         <main>
-      <div className="max-w-7xl mx-auto py-20 px-4">
-        {/* Header */}
-        <header className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Request A Quote
-          </h1>
-          <p className="text-gray-600 text-sm md:text-base">
-            Ready to start your project? Fill out this form and we'll get back to you within 24 hours.
-          </p>
-        </header>
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <main>
+        <div className="max-w-4xl mx-auto py-16 px-4">
+          {/* Header */}
+          <header className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              Get Your Project Quote
+            </h1>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Tell us about your project and we'll get back to you within 24-48 hours
+            </p>
+          </header>
 
-        <form onSubmit={handleSubmit}>
-          <div className="space-y-8">
-            {/* User Information Section */}
-            <section className="bg-white rounded-2xl shadow-md p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <User className="w-5 h-5 text-blue-600" />
-                User Information
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                    placeholder="Enter your full name"
-                    required
-                  />
+          <form onSubmit={handleSubmit}>
+            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 space-y-8">
+
+              {/* User Information Section */}
+              <div className='bg-gray-50 p-6 rounded-2xl border border-gray-200'>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900">User Information</h2>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                    placeholder="Enter company name (optional)"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                    placeholder="Enter your email address"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                    placeholder="Enter your phone number"
-                    required
-                  />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                      placeholder="Your full name"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                      placeholder="your.email@company.com"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                      placeholder="+1 (555) 123-4567"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Company Name <span className="text-gray-400">(Optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                      placeholder="Your company name"
+                    />
+                  </div>
                 </div>
               </div>
-            </section>
 
-            {/* Project/Service Details Section */}
-            <section className="bg-white rounded-2xl shadow-md p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-600" />
-                Project / Service Details
-              </h2>
-              
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Service Type *
-                    </label>
-                    <select
-                      name="serviceType"
-                      value={formData.serviceType}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                      required
-                    >
-                      <option value="">Select a service</option>
-                      <option value="web-development">Web Development</option>
-                      <option value="mobile-app">Mobile App Development</option>
-                      <option value="ui-ux-design">UI/UX Design</option>
-                      <option value="branding">Branding & Logo Design</option>
-                      <option value="consultation">Technical Consultation</option>
-                    </select>
+              {/* Project/Service Details Section */}
+              <div className='bg-gray-50 p-6 rounded-2xl border border-gray-200'>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <FileText className="w-4 h-4 text-green-600" />
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Project Type *
-                    </label>
-                    <select
-                      name="projectType"
-                      value={formData.projectType}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                      required
-                    >
-                      <option value="">Select project type</option>
-                      <option value="new-project">New Project</option>
-                      <option value="redesign">Redesign/Update</option>
-                      <option value="maintenance">Maintenance</option>
-                      <option value="consulting">Consulting Only</option>
-                    </select>
-                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900">Project / Service Details</h2>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Project Description *
-                  </label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700 resize-none"
-                    placeholder="Please describe your project requirements..."
-                    required
-                  />
+
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Select Service <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        name="serviceType"
+                        value={formData.serviceType}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 bg-white appearance-none cursor-pointer"
+                        required
+                      >
+                        <option value="">Choose a service</option>
+                        <option value="web-development">Web Development</option>
+                        <option value="mobile-app">Mobile App Development</option>
+                        <option value="ui-ux-design">UI/UX Design</option>
+                        <option value="branding">Branding & Logo Design</option>
+                        <option value="consultation">Technical Consultation</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Project Title
+                      </label>
+                      <input
+                        type="text"
+                        name="projectTitle"
+                        value={formData.serviceType}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500"
+                        placeholder="Brief project title"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Project Description
+                    </label>
+                    <textarea
+                      name="description"
+                      value={formData.description}
+                      onChange={handleInputChange}
+                      rows={5}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 placeholder-gray-500 resize-vertical"
+                      placeholder="Describe your project requirements, goals, and any specific features you need..."
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Drag / Drop <span className="text-gray-400">(Optional)</span>
+                    </label>
+                    <div
+                      className={`relative border-2 border-dashed rounded-lg p-8 transition-all duration-200 ${dragActive
+                          ? 'border-blue-400 bg-blue-50'
+                          : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                        }`}
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                    >
+                      <input
+                        type="file"
+                        multiple
+                        onChange={handleFileInput}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                      <div className="text-center">
+                        <Upload className="mx-auto h-8 w-8 text-gray-400 mb-3" />
+                        <p className="text-sm text-gray-600 mb-1">
+                          <span className="font-medium text-blue-600">Click to upload</span> or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500">PNG, JPG, PDF up to 10MB each</p>
+                      </div>
+                    </div>
+
+                    {formData.files.length > 0 && (
+                      <div className="mt-4 space-y-2">
+                        {formData.files.map((file, index) => (
+                          <div key={index} className="flex items-center justify-between bg-green-50 p-3 rounded-lg border border-green-200">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                <Check className="w-4 h-4 text-green-600" />
+                              </div>
+                              <span className="text-sm text-gray-700 truncate">{file.name}</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeFile(index)}
+                              className="text-gray-400 hover:text-red-500 transition-colors duration-200"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </section>
 
-            {/* Budget/Timeline Section */}
-            <section className="bg-white rounded-2xl shadow-md p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-blue-600" />
-                Budget / Timeline
-              </h2>
-              
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Budget Range *
-                    </label>
-                    <select
-                      name="budgetRange"
-                      value={formData.budgetRange}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                      required
-                    >
-                      <option value="">Select budget range</option>
-                      <option value="under-5k">Under $5,000</option>
-                      <option value="5k-10k">$5,000 - $10,000</option>
-                      <option value="10k-25k">$10,000 - $25,000</option>
-                      <option value="25k-50k">$25,000 - $50,000</option>
-                      <option value="over-50k">Over $50,000</option>
-                    </select>
+              {/* Budget/Timeline Section */}
+            <div className='bg-gray-50 p-6 rounded-2xl border border-gray-200'>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                    <DollarSign className="w-4 h-4 text-purple-600" />
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Project Timeline *
-                    </label>
+                  <h2 className="text-xl font-semibold text-gray-900">Budget / Timeline</h2>
+                </div>
+
+                {/* Budget Range */}
+                <div className="mb-8">
+                  <h3 className="text-lg font-medium text-gray-700 mb-4">Budget Range</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { value: 'under-10k', label: '$5k - $10k' },
+                      { value: '10k-20k', label: '$10k - $20k' },
+                      { value: '20k-50k', label: '$20k - $50k' },
+                      { value: '50k-plus', label: '$50k+' }
+                    ].map((range) => (
+                      <label key={range.value} className="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-200 group bg-white">
+                        <input
+                          type="radio"
+                          name="budgetRange"
+                          value={range.value}
+                          checked={formData.budgetRange === range.value}
+                          onChange={handleInputChange}
+                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                        />
+                        <span className={`ml-3 text-sm font-medium ${formData.budgetRange === range.value ? 'text-blue-700' : 'text-gray-700'
+                          }`}>
+                          {range.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Timeline */}
+                <div>
+                  <div className="relative">
                     <select
                       name="timeline"
                       value={formData.timeline}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
+                      className="w-full px-4 py-4 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 bg-white appearance-none cursor-pointer"
                       required
                     >
-                      <option value="">Select timeline</option>
+                      <option value="">📅 Preferred Timeline</option>
                       <option value="asap">ASAP (Rush Job)</option>
                       <option value="1-month">Within 1 Month</option>
                       <option value="2-3-months">2-3 Months</option>
                       <option value="3-6-months">3-6 Months</option>
                       <option value="flexible">Flexible</option>
                     </select>
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Preferred Start Date
-                  </label>
-                  <input
-                    type="date"
-                    name="preferredTimeline"
-                    value={formData.preferredTimeline}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lime-500 focus:border-transparent text-gray-700"
-                  />
-                </div>
-              </div>
-            </section>
-
-            {/* Additional Preferences Section */}
-            <section className="bg-white rounded-2xl shadow-md p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                <CheckSquare className="w-5 h-5 text-blue-600" />
-                Additional Preferences
-              </h2>
-              
-              <div className="space-y-3">
-                <label className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="additionalPreferences.nda"
-                    checked={formData.additionalPreferences.nda}
-                    onChange={handleInputChange}
-                    className="w-4 h-4 text-lime-600 bg-gray-100 border-gray-300 rounded focus:ring-lime-500 focus:ring-2"
-                  />
-                  <span className="text-gray-700">Require NDA (Non-Disclosure Agreement)</span>
-                </label>
-                
-                <label className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="additionalPreferences.scheduleCall"
-                    checked={formData.additionalPreferences.scheduleCall}
-                    onChange={handleInputChange}
-                    className="w-4 h-4 text-lime-600 bg-gray-100 border-gray-300 rounded focus:ring-lime-500 focus:ring-2"
-                  />
-                  <span className="text-gray-700">Schedule a consultation call</span>
-                </label>
-                
-                <label className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="additionalPreferences.ongoingSupport"
-                    checked={formData.additionalPreferences.ongoingSupport}
-                    onChange={handleInputChange}
-                    className="w-4 h-4 text-lime-600 bg-gray-100 border-gray-300 rounded focus:ring-lime-500 focus:ring-2"
-                  />
-                  <span className="text-gray-700">Interested in ongoing support/maintenance</span>
-                </label>
-              </div>
-            </section>
-
-            {/* Hero Image */}
-            <div className="rounded-2xl overflow-hidden relative">
-              <img
-                src={uiuxWorkflowBannerImg}
-                alt="UI/UX Designer working at desk with multiple monitors"
-                className="w-full h-full object-fit transform transition-transform duration-[2000ms] ease-in-out hover:scale-110"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <div className="text-center text-gray-600 space-y-2">
-              <button
-                type="submit"
-                disabled={!isFormValid()}
-                className={`w-72 font-semibold py-4 px-8 rounded-2xl shadow-lg transition-all duration-200 ${
-                  isFormValid()
-                    ? 'bg-lime-500 hover:bg-lime-600 text-white transform hover:scale-105 cursor-pointer'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-               Get My Quote
-              </button>
-              <p>
-                We typically respond within 24 hours.
-              </p>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      {/* Floating Chat Button */}
-      <button
-        onClick={handleChatClick}
-        className="fixed bottom-6 right-6 bg-lime-500 hover:bg-lime-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-40 group"
-        aria-label="Open Chat"
-      >
-        <MessageCircle className="w-6 h-6" />
-        <div className="absolute right-full mr-3 bottom-1/2 transform translate-y-1/2 bg-gray-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          Need help? Chat with us!
-        </div>
-      </button>
-
-      {/* Chatbot Modal - Bottom Right Corner */}
-      {showChatbot && (
-        <div className="fixed inset-0 z-50 pointer-events-none">
-          <div className="absolute bottom-0 right-1 pointer-events-auto">
-            <div className="bg-white rounded-2xl shadow-2xl h-[89vh] flex flex-col overflow-hidden border border-gray-200">
-              {/* Modal Header */}
-              <div className="flex items-center justify-between p-3 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                    <Bot className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <h1 className="text-sm font-semibold text-gray-900">TechGenie AI</h1>
-                    <div className="flex items-center gap-1">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-                      <p className="text-xs text-gray-500">
-                        {isTyping ? 'Typing...' : 'Online'}
-                      </p>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
                     </div>
                   </div>
                 </div>
-                <button 
-                  onClick={handleCloseChatbot}
-                  className="p-1 hover:bg-white/50 rounded-lg transition-colors"
-                >
-                  <X className="w-4 h-4 text-gray-600" />
-                </button>
               </div>
 
-              {/* Featured Projects - Compact */}
-              <div className="border-b border-gray-200 p-3 bg-gray-50">
-                <h2 className="text-xs font-medium text-gray-700 mb-2">Quick Projects</h2>
-                <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-                  {projects.slice(0, 4).map((project) => (
-                    <div
-                      key={project.id}
-                      className="flex-shrink-0 bg-white rounded-lg p-2 hover:shadow-md transition-all cursor-pointer group min-w-[100px]"
-                      onClick={() => handleProjectClick(project)}
+              {/* Hero Image */}
+              <div className="rounded-2xl overflow-hidden">
+                <img
+                  src={uiuxWorkflowBannerImg}
+                  alt="Professional workspace with multiple monitors showing design work"
+                  className="w-full h-64 object-cover"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <div className="text-center pt-4">
+                <button
+                  type="submit"
+                  disabled={!isFormValid()}
+                  className={`px-12 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform ${isFormValid()
+                      ? 'bg-lime-500 hover:bg-lime-600 text-white hover:scale-105 shadow-lg hover:shadow-xl'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    }`}
+                >
+                  Get My Quote
+                </button>
+                <p className="text-sm text-gray-500 mt-3">
+                  We'll respond within 24-48 hours
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {/* Floating Chat Button */}
+        <button
+          onClick={handleChatClick}
+          className="fixed bottom-96 right-6 text-white rounded-full shadow-lg  transition-all duration-300 hover:scale-110 z-40 group"
+          aria-label="Open Chat"
+        >
+          {/* Swan Logo Icon */}
+          <div className="w-16 h-16 bg-white  flex items-center  justify-center">
+            <img 
+              src="/msgIcon.png" 
+              alt="Swan Logo" 
+              className='rounded-full'
+            />
+          </div>
+          <div className="absolute right-full mr-3 bottom-1/2 transform translate-y-1/2 bg-gray-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            Need help? Chat with us!
+          </div>
+        </button>
+
+        {/* Chatbot Modal - Bottom Right Corner */}
+        {showChatbot && (
+          <div className="fixed inset-0 z-50 pointer-events-none">
+            <div className="absolute bottom-3 right-6 pointer-events-auto">
+              <div className="bg-white rounded-2xl shadow-2xl w-96 h-[800px] flex flex-col overflow-hidden border border-gray-200">
+                {/* Modal Header */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-lg p-1">
+                      {/* Swan Logo in Header */}
+                      <img 
+                        src="/msgIcon.png" 
+                        alt="Swan Logo" 
+                        className="w-4 h-4"
+                      />
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-semibold text-gray-900">TechGenie</h1>
+                      <p className="text-xs text-gray-500">AI by SwanLogic</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="p-1 hover:bg-gray-100 rounded-lg transition-colors">
+                      <Settings className="w-4 h-4 text-gray-600" />
+                    </button>
+                    <button
+                      onClick={handleCloseChatbot}
+                      className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
                     >
-                      <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 rounded-md mb-1 relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">{project.id}</span>
+                      <X className="w-4 h-4 text-gray-600" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Messages Area */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                  {/* Time stamp */}
+                  <div className="text-center">
+                    <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">
+                      Sun 16, 10:24 AM
+                    </span>
+                  </div>
+
+                  {/* Bot Welcome Message */}
+                  <div className="flex gap-3">
+                    <div className="w-7 h-7 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0 p-1">
+                      {/* Swan Logo in Messages */}
+                      <img 
+                        src="/msgIcon.png" 
+                        alt="Swan Logo" 
+                        className="w-4 h-4"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <div className="bg-white rounded-2xl rounded-tl-md p-3 shadow-sm border">
+                        <p className="text-sm text-gray-800">
+                          Great news! Which service are you looking for?
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Service Cards Grid - 3x2 layout matching the image */}
+                  <div className="grid grid-cols-3 gap-3 px-2">
+                    {[
+                      { 
+                        title: 'UI/UX Design', 
+                        displayTitle: 'UI/UX',
+                        bg: 'bg-gradient-to-br from-purple-500 to-pink-500',
+                        image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=100&h=100&fit=crop&crop=center'
+                      },
+                      { 
+                        title: 'Branding', 
+                        displayTitle: 'Branding',
+                        bg: 'bg-gradient-to-br from-red-500 to-pink-500',
+                        image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop&crop=center'
+                      },
+                      { 
+                        title: 'Marketing', 
+                        displayTitle: 'Marketing',
+                        bg: 'bg-gradient-to-br from-blue-500 to-purple-600',
+                        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&fit=crop&crop=center'
+                      },
+                      { 
+                        title: 'Web Development', 
+                        displayTitle: 'Web Dev',
+                        bg: 'bg-gradient-to-br from-blue-600 to-indigo-600',
+                        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=100&h=100&fit=crop&crop=center'
+                      },
+                      { 
+                        title: 'Mobile App', 
+                        displayTitle: 'Mobile',
+                        bg: 'bg-gradient-to-br from-green-500 to-blue-500',
+                        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=100&h=100&fit=crop&crop=center'
+                      },
+                      { 
+                        title: 'Consulting', 
+                        displayTitle: 'Consult',
+                        bg: 'bg-gradient-to-br from-indigo-500 to-purple-600',
+                        image: 'https://images.unsplash.com/photo-1553484771-371a605b060b?w=100&h=100&fit=crop&crop=center'
+                      }
+                    ].map((service, index) => (
+                      <div
+                        key={index}
+                        className="cursor-pointer hover:scale-105 transition-transform"
+                        onClick={() => setInputValue(`I'm interested in ${service.title}`)}
+                      >
+                        <div className={`${service.bg} rounded-xl p-0 aspect-square flex items-center justify-center mb-2 overflow-hidden relative`}>
+                          <img 
+                            src={service.image} 
+                            alt={service.title}
+                            className="w-full h-full object-cover opacity-80"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+                            <span className="text-white text-xs font-bold text-center leading-tight">
+                              {service.displayTitle}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 text-center font-medium">
+                          {service.title}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Sample conversation messages */}
+                  <div className="flex gap-3">
+                    <div className="w-7 h-7 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0 p-1">
+                      <img 
+                        src="/msgIcon.png" 
+                        alt="Swan Logo" 
+                        className="w-4 h-4"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <div className="bg-white rounded-2xl rounded-tl-md p-3 shadow-sm border">
+                        <p className="text-sm text-gray-800">
+                          Excellent choice! This approach will work well for your project. Let me explain how to implement it.
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-1">09:10 PM</p>
+                    </div>
+                  </div>
+
+                  {/* User message example */}
+                  <div className="flex gap-3 flex-row-reverse">
+                    <div className="w-7 h-7 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xs font-bold">H</span>
+                    </div>
+                    <div className="flex-1 max-w-[240px]">
+                      <div className="bg-blue-600 text-white rounded-2xl rounded-tr-md p-3 shadow-sm">
+                        <p className="text-sm leading-relaxed">hi</p>
+                      </div>
+                      <div className="flex items-center justify-end gap-1 mt-1">
+                        <p className="text-xs text-gray-400">09:10 PM</p>
+                        <div className="w-4 h-4 rounded-full bg-orange-400 flex items-center justify-center">
+                          <span className="text-white text-xs">👤</span>
                         </div>
                       </div>
-                      <p className="text-xs font-medium text-gray-700 truncate">{project.title}</p>
-                      <p className="text-xs text-gray-500 truncate text-[10px]">{project.tech}</p>
+                    </div>
+                  </div>
+
+                  {/* Other dynamic messages */}
+                  {messages.slice(1).map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex gap-3 ${message.isBot ? 'flex-row' : 'flex-row-reverse'}`}
+                    >
+                      <div className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center">
+                        {message.isBot ? (
+                          <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center p-1">
+                            <img 
+                              src="/msgIcon.png" 
+                              alt="Swan Logo" 
+                              className="w-4 h-4"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">H</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 max-w-[240px]">
+                        <div
+                          className={`rounded-2xl p-3 shadow-sm ${
+                            message.isBot
+                              ? 'bg-white text-gray-800 rounded-tl-md border'
+                              : 'bg-blue-600 text-white rounded-tr-md'
+                          }`}
+                        >
+                          <p className="text-sm leading-relaxed">{message.text}</p>
+                        </div>
+                        <div className={`flex items-center gap-1 mt-1 ${message.isBot ? 'justify-start' : 'justify-end'}`}>
+                          <p className="text-xs text-gray-400">
+                            {message.time}
+                          </p>
+                          {!message.isBot && (
+                            <div className="w-4 h-4 rounded-full bg-orange-400 flex items-center justify-center">
+                              <span className="text-white text-xs">👤</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   ))}
-                </div>
-              </div>
 
-              {/* Messages Area */}
-              <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-300">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex gap-2 ${message.isBot ? 'flex-row' : 'flex-row-reverse'}`}
-                  >
-                    <div className="w-6 h-6 rounded-full flex-shrink-0 shadow-sm">
-                      {message.isBot ? (
-                        <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-                          <Bot className="w-3 h-3 text-white" />
-                        </div>
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">U</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="max-w-[200px]">
-                      <div
-                        className={`rounded-xl p-3 shadow-sm ${
-                          message.isBot
-                            ? 'bg-white text-gray-800 rounded-bl-sm border border-gray-100'
-                            : 'bg-blue-600 text-white rounded-br-sm'
-                        }`}
-                      >
-                        <p className="text-xs leading-relaxed">{message.text}</p>
+                  {/* Typing Indicator */}
+                  {isTyping && (
+                    <div className="flex gap-3">
+                      <div className="w-7 h-7 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0 p-1">
+                        <img 
+                          src="/msgIcon.png" 
+                          alt="Swan Logo" 
+                          className="w-4 h-4"
+                        />
                       </div>
-                      <p className={`text-xs text-gray-400 mt-1 ${message.isBot ? 'text-left' : 'text-right'}`}>
-                        {message.time}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Typing Indicator */}
-                {isTyping && (
-                  <div className="flex gap-2">
-                    <div className="w-6 h-6 rounded-full flex-shrink-0 shadow-sm">
-                      <div className="w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-                        <Bot className="w-3 h-3 text-white" />
-                      </div>
-                    </div>
-                    <div className="max-w-[200px]">
-                      <div className="bg-white text-gray-800 rounded-xl rounded-bl-sm border border-gray-100 p-3 shadow-sm">
-                        <div className="flex items-center space-x-1">
-                          <div className="flex space-x-1">
-                            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
-                            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="flex-1">
+                        <div className="bg-white rounded-2xl rounded-tl-md p-3 shadow-sm border">
+                          <div className="flex items-center space-x-1">
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                            </div>
                           </div>
-                          <span className="text-xs text-gray-500 ml-1">Typing...</span>
                         </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Message Input */}
+                <div className="border-t border-gray-200 bg-white p-4">
+                  <div className="flex items-center gap-2">
+                    
+                    <div className="flex-1 relative">
+                      <input
+                        ref={inputRef}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Hola!"
+                        className="w-full px-4 py-2 bg-gray-100 rounded-full text-sm outline-none focus:bg-gray-200 transition-colors"
+                        disabled={isTyping}
+                      />
+                    </div>
+                    <button
+                      onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                      className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-500"
+                    >
+                      <Smile className="w-4 h-4" />
+                    </button>
+                    
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={!inputValue.trim() || isTyping}
+                      className={`p-2 rounded-lg transition-colors ${
+                        inputValue.trim() && !isTyping
+                          ? 'text-blue-600 hover:bg-blue-50'
+                          : 'text-gray-300 cursor-not-allowed'
+                      }`}
+                    >
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Emoji Picker */}
+                {showEmojiPicker && (
+                  <div className="absolute bottom-16 left-0 right-0 bg-white border border-gray-200 rounded-t-2xl shadow-lg max-h-40 overflow-hidden">
+                    <div className="flex border-b border-gray-100 px-2">
+                      {emojiCategories.map((category, index) => (
+                        <button
+                          key={category.name}
+                          onClick={() => setActiveEmojiCategory(index)}
+                          className={`px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                            activeEmojiCategory === index ? 'border-b-2 border-blue-500' : ''
+                          }`}
+                        >
+                          {category.name}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="p-3 h-32 overflow-y-auto">
+                      <div className="grid grid-cols-8 gap-1">
+                        {emojiCategories[activeEmojiCategory].emojis.slice(0, 32).map((emoji, index) => (
+                          <button
+                            key={index}
+                            onClick={() => handleEmojiClick(emoji)}
+                            className="text-lg p-1 hover:bg-gray-100 rounded transition-colors"
+                          >
+                            {emoji}
+                          </button>
+                        ))}
                       </div>
                     </div>
                   </div>
                 )}
-                
-                <div ref={messagesEndRef} />
-              </div>
-
-              {/* Emoji Picker - Compact */}
-              {showEmojiPicker && (
-                <div className="border-t border-gray-200 bg-white max-h-32">
-                  <div className="flex border-b border-gray-100 px-1">
-                    {emojiCategories.map((category, index) => (
-                      <button
-                        key={category.name}
-                        onClick={() => setActiveEmojiCategory(index)}
-                        className={`px-2 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                          activeEmojiCategory === index ? 'border-b-2 border-blue-500' : ''
-                        }`}
-                      >
-                        {category.name}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="p-2 h-24 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
-                    <div className="grid grid-cols-6 gap-1">
-                      {emojiCategories[activeEmojiCategory].emojis.slice(0, 12).map((emoji, index) => (
-                        <button
-                          key={index}
-                          onClick={() => handleEmojiClick(emoji)}
-                          className="text-sm p-1 hover:bg-gray-100 rounded transition-colors"
-                        >
-                          {emoji}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Message Input - Compact */}
-              <div className="border-t border-gray-200 bg-white p-3">
-                <div className="flex items-end gap-2">
-                  <div className="flex-1 relative">
-                    <textarea
-                      ref={inputRef}
-                      value={inputValue}
-                      onChange={handleChatInputChange}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Ask me anything..."
-                      className="w-full px-3 py-2 pr-16 rounded-xl border text-gray-700 border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 outline-none transition-all text-xs resize-none min-h-[32px] max-h-20"
-                      rows={1}
-                      disabled={isTyping}
-                    />
-                    <div className="absolute right-1 bottom-1 flex items-center gap-1">
-                      <button
-                        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                        className={`p-1 rounded-md transition-colors ${
-                          showEmojiPicker 
-                            ? 'text-blue-600 bg-blue-50' 
-                            : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
-                        }`}
-                      >
-                        <Smile className="w-3 h-3" />
-                      </button>
-                      <button 
-                        onClick={handleSendMessage}
-                        disabled={!inputValue.trim() || isTyping}
-                        className={`p-1 rounded-md transition-colors ${
-                          inputValue.trim() && !isTyping
-                            ? 'text-blue-600 hover:bg-blue-50'
-                            : 'text-gray-300 cursor-not-allowed'
-                        }`}
-                      >
-                        <Send className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-xs text-gray-400 mt-1 text-center">
-                  {isTyping ? 'AI is responding...' : 'Press Enter to send'}
-                </p>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Success Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <div className="w-12 h-12 border-2 border-purple-400 rounded-full flex items-center justify-center relative">
-                  <Check className="w-6 h-6 text-purple-500" />
-                </div>
-              </div>
-              
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Thank You!
-              </h2>
-              
-              <p className="text-gray-600">
-                Our team will review your request and send you a quotation shortly.
-              </p>
-            </div>
-
-            <div className="space-y-3">
+        {/* Success Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl">
               <button
                 onClick={closeModal}
-                className="w-full bg-lime-400 hover:bg-lime-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
               >
-                Get My Quote
+                <X className="w-5 h-5" />
               </button>
-              
-              <button
-                onClick={handleSubmitAnother}
-                className="w-full border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors"
-              >
-                Submit Another Request
-              </button>
+
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 border-2 border-purple-400 rounded-full flex items-center justify-center relative">
+                    <Check className="w-6 h-6 text-purple-500" />
+                  </div>
+                </div>
+
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Thank You!
+                </h2>
+
+                <p className="text-gray-600">
+                  Our team will review your request and send you a quotation shortly.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <button
+                  onClick={closeModal}
+                  className="w-full bg-lime-400 hover:bg-lime-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
+                >
+                  Get My Quote
+                </button>
+
+                <button
+                  onClick={handleSubmitAnother}
+                  className="w-full border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-medium py-3 px-6 rounded-xl transition-colors"
+                >
+                  Submit Another Request
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-       </main>
-            <FooterSimple />
-          </div>
+      </main>
+      <FooterSimple />
+    </div>
   );
 }

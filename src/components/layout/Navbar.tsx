@@ -57,7 +57,7 @@ export function Navbar() {
           <img
             src="/SwanLogics-logo.png"
             alt="SwanLogics logo"
-            className="h-8 w-auto"
+            className="h-16 w-auto"
           />
         </button>
 
@@ -104,15 +104,16 @@ export function Navbar() {
         </div>
 
         {/* Desktop CTA */}
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 md:flex relative ">
           <img src="/Vector.svg" alt="" className="h-5 w-5 opacity-80" />
           <Button 
-            onClick={() => navigate("/quote")}
-            className="flex items-center gap-2 rounded-full bg-[#D0FF71] px-5 py-3 font-bold text-black hover:brightness-95"
-          >
-            Start A Project
-            <img src="/Arrow 1-1.svg" alt="arrow" className="h-4 w-4" />
-          </Button>
+  onClick={() => navigate("/quote")}
+  className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-5 font-bold"
+>
+  Start A Project
+</Button>
+
+            <img src="/Arrow 1-1.svg" alt="arrow" className="p-4 rounded-full bg-lime-300 text-brand-ink absolute left-40 " />
         </div>
       </div>
 
@@ -140,16 +141,7 @@ export function Navbar() {
               {link.label}
             </button>
           ))}
-          <Button 
-            onClick={() => {
-              navigate("/quote");
-              setOpen(false);
-            }}
-            className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#D0FF71] px-5 py-3 font-bold text-black hover:brightness-95"
-          >
-            Start A Project
-            <img src="/Arrow 1-1.svg" alt="arrow" className="h-4 w-4" />
-          </Button>
+          
         </div>
       </div>
     </nav>

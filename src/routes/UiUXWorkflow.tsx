@@ -32,11 +32,15 @@ import project01 from '../images/uiux-project-01.png';
 import project02 from '../images/uiux-project 02.png';
 import project03 from '../images/uiux-project-03.png';
 import project04 from '../images/uiux-project-04.png';
+import { Button } from "@/components/ui/button";
+import { useNavigate } from 'react-router-dom';
 
 
 import { motion } from "framer-motion";
 
 export default function UXDesignStudio() {
+
+  const navigate = useNavigate();
 
   // Reusable row component
   const Row = ({ direction = "left" }) => {
@@ -876,13 +880,19 @@ export default function UXDesignStudio() {
               ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="text-center mb-16">
-              <button className="group inline-flex items-center gap-3 px-8 py-4 bg-lime-400 text-black font-semibold rounded-full hover:bg-lime-300 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-lime-400/25">
-                Get In Touch Today
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+             {/* CTA Button */}
+                        <div className="text-center mb-16 flex justify-center">
+                            <div className="hidden items-center gap-3 md:flex relative ">
+                      <Button 
+              onClick={() => navigate("/contact")}
+              className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-5 font-bold"
+            >
+              Get In Touch Today
+            </Button>
+            
+                        <img src="/Arrow 1-1.svg" alt="arrow" className="p-4 rounded-full bg-lime-300 text-brand-ink absolute left-40 " />
+                    </div>
+                        </div>
           </div>
         </div>
 

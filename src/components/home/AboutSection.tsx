@@ -1,42 +1,60 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
 
 export default function AboutSection() {
+    const navigate = useNavigate();
+
   return (
-    <section aria-labelledby="about-title" className="mx-auto max-w-[1400px] px-6 py-20 md:px-10">
-      <div className="grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-start">
+    <section aria-labelledby="about-title" className="mx-auto max-w-[1400px] px-4 py-12 sm:px-6 sm:py-16 md:px-10 md:py-20">
+      <div className="grid gap-8 md:gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-start">
         {/* Left: Tag + Image + Copy */}
-        <div className="space-y-6">
-          <div className="inline-flex items-center gap-3 rounded-full bg-brand-purple px-5 py-2">
-            <span className="font-dewi text-xs uppercase tracking-[0.25em] text-white"># Who We Are?</span>
+        <div className="space-y-4 sm:space-y-6">
+          <div className="inline-flex items-center gap-2 sm:gap-3 rounded-full bg-purple-100 px-3 py-1.5 sm:px-5 sm:py-2">
+            <span className="font-dewi text-xs uppercase tracking-[0.15em] sm:tracking-[0.25em] text-brand-ink"># Who We Are?</span>
           </div>
 
-          <div className="overflow-hidden rounded-[20px] shadow-surface">
+          <div className="overflow-hidden rounded-[12px] sm:rounded-[20px] shadow-surface">
             <img src="/image 1.png" alt="Our team collaborating" className="aspect-[4/3] w-full object-cover" />
           </div>
 
-          <p className="font-hanken text-base leading-relaxed text-brand-gray">
-            We’re a passionate team delivering digital experiences designed to drive growth. From strategy and design to
+          <p className="font-hanken text-sm sm:text-base leading-relaxed text-brand-gray">
+            We're a passionate team delivering digital experiences designed to drive growth. From strategy and design to
             development and online campaigns, we build websites that reflect your vision and achieve business goals.
           </p>
         </div>
 
         {/* Right: Headline + CTA */}
-        <div className="space-y-6">
-          <h2 id="about-title" className="text-4xl leading-tight sm:text-5xl md:text-6xl">
+        <div className="space-y-6 sm:space-y-8">
+          <h2 id="about-title" className="text-2xl leading-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Dedicated To Your
             <br />
             Success With Innovative
-            <br />
-            Digital Marketing Solutions
+            <br className="hidden sm:block" />
+            <span className="block sm:inline">Digital Marketing Solutions</span>
           </h2>
 
-          <a
-            href="#about"
-            className="inline-flex items-center gap-3 rounded-full bg-[#D0FF71] px-6 py-3 font-semibold text-black shadow"
-          >
-            More About Us
-            <img src="/Arrow 1-1.svg" alt="arrow" className="h-4 w-4" />
-          </a>
+          {/* Mobile CTA */}
+          <div className="flex justify-center md:hidden">
+            <Button 
+              onClick={() => navigate("/quote")}
+              className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base w-full max-w-xs justify-center"
+            >
+              More About Us
+            </Button>
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3 relative">
+            <Button 
+              onClick={() => navigate("/quote")}
+              className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-5 font-bold"
+            >
+              More About Us
+            </Button>
+            <img src="/Arrow 1-1.svg" alt="arrow" className="p-4 rounded-full bg-lime-300 text-brand-ink absolute left-32" />
+            <img src="/maskArrow.svg" alt="bend arrow" className="absolute top-32 left-60" />
+          </div>
         </div>
       </div>
     </section>

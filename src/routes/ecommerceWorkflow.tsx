@@ -31,11 +31,14 @@ import uiuxWorkflow09 from '../images/uiux-11.png';
 import project01 from '../images/uiux-project-01.png';
 import project02 from '../images/uiux-project 02.png';
 import project03 from '../images/uiux-project-03.png';
+import { Button } from "@/components/ui/button";
+import { useNavigate } from 'react-router-dom';
 
 
 import { motion } from "framer-motion";
 
 export default function EcommerceWorkflow() {
+  const navigate = useNavigate();
 
   // Reusable row component
   const Row = ({ direction = "left" }) => {
@@ -60,42 +63,42 @@ export default function EcommerceWorkflow() {
     );
   };
 
-  // Services data for the web services section
+  // Services data for the e-commerce services section
   const webServices = [
     {
       icon: Monitor,
-      title: "Web Design",
-      description: "We craft visually stunning and strategically effective websites that capture your brand's unique identity and captivate your audience from the first click.",
+      title: "Custom Store Development",
+      description: "We build bespoke e-commerce stores using Shopify, WooCommerce, or custom platforms, creating unique shopping experiences tailored to your brand and business needs.",
       color: "bg-lime-400"
     },
     {
       icon: ShoppingCart,
-      title: "ECommerce",
-      description: "Transform your online store into a powerful sales engine with intuitive product discovery, seamless checkout flows, and a shopping experience built for conversion.",
+      title: "E-commerce Migration",
+      description: "Seamlessly migrate your existing store to a new platform with zero downtime, preserving all data, customer information, and order history in the process.",
       color: "bg-lime-400"
     },
     {
       icon: Heart,
-      title: "UX Design",
-      description: "Our user-centered approach focuses on creating intuitive, efficient, and enjoyable journeys that keep users engaged and coming back for more.",
+      title: "Payment Integration",
+      description: "Integrate multiple payment gateways including Stripe, PayPal, and local options, ensuring secure and smooth checkout experiences for your customers.",
       color: "bg-lime-400"
     },
     {
       icon: Smartphone,
-      title: "Responsive",
-      description: "Your website will provide a flawless experience on any device, from desktops to smartphones, ensuring you reach and engage every customer.",
+      title: "Mobile Optimization",
+      description: "Create mobile-first e-commerce experiences that work perfectly on all devices, with touch-friendly interfaces and accelerated mobile pages.",
       color: "bg-lime-400"
     },
     {
       icon: FileText,
-      title: "Wireframes",
-      description: "We build clear, structural blueprints to strategically map out user journeys and functionality, establishing a solid foundation before visual design begins.",
+      title: "Inventory Management",
+      description: "Implement advanced inventory systems with real-time tracking, automated reorder alerts, and integration with your existing warehouse management.",
       color: "bg-lime-400"
     },
     {
       icon: Target,
-      title: "Strategy",
-      description: "We go beyond aesthetics by defining clear goals, understanding your audience, and aligning your website's design with your overarching business objectives.",
+      title: "Conversion Optimization",
+      description: "Optimize your store for maximum conversions with A/B testing, user experience improvements, and data-driven design decisions.",
       color: "bg-lime-400"
     }
   ];
@@ -200,21 +203,21 @@ export default function EcommerceWorkflow() {
             {/* 1. Header Section */}
             <div className="px-8 pt-8 pb-4">
               <div className="text-sm text-gray-500 bg-slate-50 p-4 w-fit rounded-full uppercase tracking-wider mb-4">
-                UI/UX Design Workflow
+                E-commerce Development Workflow
               </div>
 
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 {/* Left Content: Title */}
                 <div>
                   <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-                    A UI/UX Design Studio In Manchester
+                    An E-commerce Development Agency In Manchester
                   </h1>
                 </div>
 
                 {/* Right Content: Short Description */}
                 <div className="text-gray-600 leading-relaxed">
                   <p className="mb-6">
-                    We believe great design goes beyond visuals—it's about creating smooth, meaningful interactions. By blending creativity with strategy, we ensure every project not only looks stunning but also provides an effortless user journey.
+                    We specialize in creating high-converting online stores that drive sales and provide exceptional shopping experiences. From platform selection to launch and optimization, our Manchester-based team builds e-commerce solutions that turn visitors into loyal customers.
                   </p>
                 </div>
               </div>
@@ -227,7 +230,7 @@ export default function EcommerceWorkflow() {
               <div className="mb-12">
                 <p className="text-lg text-gray-600 leading-relaxed">
                   {/* Increased text size for better reading flow */}
-                  Our Manchester-based UI/UX design studio is committed to transforming ideas into digital experiences that truly connect with people. We begin every project by understanding user behavior, business objectives, and market trends to ensure the foundation is strong. From research and wireframing to prototyping and usability testing, our process is designed to create intuitive and visually compelling interfaces. Each design is carefully crafted to provide seamless navigation, consistent branding, and accessibility across all devices. By blending creativity with strategy, we deliver solutions that are not only aesthetically pleasing but also practical and results-driven.
+                  Our Manchester-based e-commerce development agency is committed to transforming business ideas into thriving online stores. We begin every project by understanding your products, target market, and sales goals to ensure the foundation is strong. From platform selection and store design to payment integration and launch, our process is designed to create conversion-optimized stores that drive revenue. Each e-commerce solution is carefully built with user experience in mind, featuring intuitive navigation, seamless checkout flows, and mobile-responsive designs. By combining technical expertise with e-commerce best practices, we deliver solutions that are not only visually appealing but also highly functional and profitable.
                 </p>
               </div>
 
@@ -269,15 +272,15 @@ export default function EcommerceWorkflow() {
                 {/* Left Content */}
                 <div>
                   <div className="text-sm text-gray-500 uppercase tracking-wider mb-4">
-                    Requirement Gathering
+                    Business Analysis
                   </div>
 
                   <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                    Understand Client Goals & Target Audience
+                    Product Strategy & Market Analysis
                   </h2>
 
                   <p className="text-gray-600 leading-relaxed mb-8">
-                    Effective requirement gathering is the foundation of any successful project. It involves in-depth discussions with stakeholders to identify business objectives, user needs, and functional expectations. This phase ensures that the final product aligns with the client's vision and delivers tangible value to the end-users.
+                    Successful e-commerce ventures start with comprehensive business analysis. We conduct thorough market research, analyze competitor strategies, and develop product positioning that resonates with your target audience. This strategic foundation ensures your online store is built to capture market share and drive sustainable growth.
                   </p>
 
                   <div className="space-y-4">
@@ -286,7 +289,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Conduct stakeholder interviews to identify key objectives
+                        Analyze target market and customer demographics
                       </p>
                     </div>
 
@@ -295,7 +298,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Define user personas and their specific needs
+                        Research competitor e-commerce strategies and pricing
                       </p>
                     </div>
 
@@ -304,7 +307,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Document functional and non-functional requirements
+                        Define product catalog and inventory management needs
                       </p>
                     </div>
 
@@ -313,7 +316,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Establish measurable success criteria and project KPIs
+                        Establish revenue goals and conversion targets
                       </p>
                     </div>
                   </div>
@@ -390,15 +393,15 @@ export default function EcommerceWorkflow() {
                 {/* Right Content */}
                 <div>
                   <div className="text-sm bg-slate-50 w-fit p-3 rounded-full text-gray-500 uppercase tracking-wider mb-4">
-                    Research & Analysis
+                    Platform Selection
                   </div>
 
                   <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                    Competitor Study, User Personas, Design Trends
+                    E-commerce Platform & Technology Stack
                   </h2>
 
                   <p className="text-gray-600 leading-relaxed mb-8">
-                    Through research and analysis are critical for making informed design decisions. This phase involves a deep dive into the market landscape to understand competitor strengths and weaknesses, creating detailed profiles of target users, and identifying current and emerging design trends to ensure the final product is both competitive and user-centric.
+                    Choosing the right e-commerce platform and technology stack is crucial for long-term success. We evaluate Shopify, WooCommerce, Magento, and custom solutions based on your business needs, scalability requirements, and budget. This ensures you have a robust foundation that can grow with your business.
                   </p>
 
                   <div className="space-y-4">
@@ -407,7 +410,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Conduct a SWOT analysis of key competitors
+                        Evaluate Shopify, WooCommerce, Magento, and custom platforms
                       </p>
                     </div>
 
@@ -416,7 +419,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Develop detailed user personas based on real data and interviews
+                        Assess payment gateway and shipping integration options
                       </p>
                     </div>
 
@@ -425,7 +428,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Audit and document relevant UI/UX design patterns and trends
+                        Plan for scalability, security, and performance requirements
                       </p>
                     </div>
 
@@ -434,7 +437,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Synthesize findings into actionable insights for the strategy phase
+                        Create technical architecture and integration roadmap
                       </p>
                     </div>
                   </div>
@@ -454,15 +457,15 @@ export default function EcommerceWorkflow() {
                 {/* Left Content */}
                 <div>
                   <div className="text-sm bg-slate-50 w-fit p-3 rounded-full text-gray-500 uppercase tracking-wider mb-4">
-                    Information Architecture
+                    Store Design
                   </div>
 
                   <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                    Sitemap, Navigation, And Content Flow
+                    User Experience & Conversion Optimization
                   </h2>
 
                   <p className="text-gray-600 leading-relaxed mb-8">
-                    This phase focuses on structuring the product's information architecture. It involves creating a clear sitemap outlining all pages and content sections, designing intuitive navigation systems for seamless user experience, and mapping the content flow to ensure users can complete their tasks efficiently and find information without friction.
+                    The success of an e-commerce store depends on its ability to convert visitors into customers. We design intuitive user journeys, optimize product pages for conversions, and create seamless checkout experiences that minimize cart abandonment and maximize sales.
                   </p>
 
                   <div className="space-y-4">
@@ -471,7 +474,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Develop a hierarchical sitemap outlining all pages and content sections
+                        Design intuitive navigation and category structures
                       </p>
                     </div>
 
@@ -480,7 +483,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Define primary and secondary global navigation menus
+                        Create conversion-optimized product page layouts
                       </p>
                     </div>
 
@@ -489,7 +492,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Map user journeys and key task flows for critical user goals
+                        Map customer journey from discovery to purchase
                       </p>
                     </div>
 
@@ -498,7 +501,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Establish a clear content strategy and inventory for each page
+                        Implement trust signals and social proof elements
                       </p>
                     </div>
                   </div>
@@ -537,21 +540,17 @@ export default function EcommerceWorkflow() {
                 <div className=" rounded-2xl p-8 relative overflow-hidden">
                   {/* Small label */}
                   <div className="text-sm text-lime-400 uppercase text-center tracking-wider mb-4 font-medium">
-                    Wireframing
+                    Store Development
                   </div>
 
                   {/* Title */}
                   <h3 className="text-5xl font-bold text-white leading-tight mb-4 text-center">
-                    Low-Fidelity Screen<br />Layouts
+                    Custom Features &<br />Third-Party Integrations
                   </h3>
 
                   {/* Description */}
                   <p className="text-gray-300 leading-relaxed mb-8 text-sm text-center">
-                    Low-fidelity layouts, such as wireframes, are used to establish the basic
-                    structure and layout of key screens without visual design details. This
-                    allows the team to focus on functionality, user flow, and element
-                    placement ensuring a solid foundational experience before investing in
-                    visual design and content.
+                    Building a successful e-commerce store requires custom features and seamless integrations. This includes payment processing, inventory management, shipping calculators, and marketing tools that work together to create a comprehensive shopping platform tailored to your business needs.
                   </p>
 
                   {/* User Flow Image */}
@@ -578,21 +577,17 @@ export default function EcommerceWorkflow() {
                 <div className="rounded-2xl p-8 container relative overflow-hidden">
                   {/* Small label */}
                   <div className="text-sm text-lime-400 uppercase text-center tracking-wider mb-4 font-medium">
-                    User Flow Mapping
+                    Payment Integration
                   </div>
 
                   {/* Title */}
                   <h3 className="text-5xl font-bold text-white leading-tight mb-4 text-center">
-                    Define Journeys For<br />Smooth Navigation
+                    Secure Checkout &<br />Payment Processing
                   </h3>
 
                   {/* Description */}
                   <p className="text-gray-300 leading-relaxed mb-8 text-sm text-center">
-                    Mapping user journeys is essential for creating an intuitive experience.
-                    This process involves outlining the step-by-step paths users will take to
-                    complete key tasks, identifying potential pain points, and ensuring the
-                    navigation is logical and efficient. This helps in creating a seamless flow
-                    that guides users effortlessly to their goals.
+                    Trust and security are paramount in e-commerce. We implement robust payment gateways, SSL certificates, and security measures to protect customer data and ensure smooth, secure transactions that build confidence and reduce cart abandonment.
                   </p>
 
                   {/* User Flow Image */}
@@ -628,21 +623,22 @@ export default function EcommerceWorkflow() {
             {/* 1. Header Section */}
             <div className="px-8 pt-8 pb-4">
               <div className="text-sm bg-slate-50 w-fit p-3 rounded-full text-gray-500 uppercase tracking-wider mb-4">
-                Prototyping
+                Store Launch
               </div>
 
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 {/* Left Content: Title */}
                 <div>
                   <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
-                    Clickable mid/high-fidelity prototypes
+                    Pre-Launch Testing & Go-Live Preparation
                   </h1>
                 </div>
 
                 {/* Right Content: Short Description */}
                 <div className="text-gray-600 leading-relaxed">
                   <p className="mb-6">
-                    Clickable mid and high-fidelity prototypes transform static designs into dynamic, interactive models that closely mimic the final product. They are essential for validating complex user flows, conducting effective usability testing to gather actionable feedback, and clearly communicating the intended functionality and experience to stakeholders and developers before committing to costly development.                  </p>
+                    Launching an e-commerce store requires meticulous preparation and testing. We conduct comprehensive quality assurance, load testing, and user acceptance testing to ensure everything works perfectly before going live, minimizing risks and ensuring a smooth launch experience.
+                  </p>
                 </div>
               </div>
             </div>
@@ -701,15 +697,15 @@ export default function EcommerceWorkflow() {
                 {/* Right Content */}
                 <div>
                   <div className="text-sm bg-slate-50 w-fit p-3 rounded-full text-gray-500 uppercase tracking-wider mb-4">
-                    Visual Design
+                    Marketing Setup
                   </div>
 
                   <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                    Branding, colors, typography, components
+                    SEO, Analytics & Conversion Tracking
                   </h2>
 
                   <p className="text-gray-600 leading-relaxed mb-8">
-                    Our visual design process translates your brand's essence into a compelling and intuitive user interface. We craft pixel-perfect experiences by meticulously defining the core elements that users see and interact with. This includes establishing a cohesive color palette that reflects your brand identity and guides user behavior, selecting typography that ensures readability and personality, and building a robust library of reusable UI components.
+                    A beautiful store needs customers to find it. We implement comprehensive SEO strategies, set up analytics tracking, and configure conversion funnels to drive traffic and measure performance. This ensures your e-commerce store not only looks great but also performs exceptionally in search results and marketing campaigns.
                   </p>
 
                   <div className="space-y-4">
@@ -718,7 +714,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Brand Identity & Logo Integration.
+                        Implement on-page SEO and meta tag optimization
                       </p>
                     </div>
 
@@ -727,7 +723,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Color Palette & Accessibility Compliance.
+                        Set up Google Analytics and e-commerce tracking
                       </p>
                     </div>
 
@@ -736,7 +732,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Typography Hierarchy & Web Fonts.
+                        Configure conversion tracking and goal setup
                       </p>
                     </div>
 
@@ -745,7 +741,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        UI Component & Design System Creation.
+                        Integrate email marketing and CRM systems
                       </p>
                     </div>
                   </div>
@@ -765,15 +761,15 @@ export default function EcommerceWorkflow() {
                 {/* Left Content */}
                 <div>
                   <div className="text-sm bg-slate-50 w-fit p-3 rounded-full text-gray-500 uppercase tracking-wider mb-4">
-                    Usability Testing
+                    Performance Optimization
                   </div>
 
                   <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                    Validate design with users, collect feedback
+                    Speed Optimization & A/B Testing
                   </h2>
 
                   <p className="text-gray-600 leading-relaxed mb-8">
-                    Usability testing is a crucial step that places your design directly in front of real users to identify pain points, uncover opportunities, and validate design decisions before launch. We facilitate structured tests where participants complete specific tasks while we observe their behavior, gather their feedback, and measure key metrics like success rates and task time.
+                    Post-launch success depends on continuous optimization. We monitor site performance, conduct A/B testing on key pages, and implement data-driven improvements to increase conversions, reduce bounce rates, and maximize your return on investment.
                   </p>
 
                   <div className="space-y-4">
@@ -782,7 +778,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Recruit target users & develop test scenarios.
+                        Optimize page load speeds and Core Web Vitals
                       </p>
                     </div>
 
@@ -791,7 +787,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Conduct moderated or unmoderated testing sessions.
+                        Conduct A/B testing on product pages and checkout flow
                       </p>
                     </div>
 
@@ -800,7 +796,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Analyze user behavior, feedback, and performance metrics.
+                        Analyze user behavior and conversion funnel data
                       </p>
                     </div>
 
@@ -809,7 +805,7 @@ export default function EcommerceWorkflow() {
                         <Check className="w-4 h-4 text-purple-600" />
                       </div>
                       <p className="text-gray-700">
-                        Synthesize findings into actionable insights for iteration.
+                        Implement data-driven improvements and feature updates
                       </p>
                     </div>
                   </div>
@@ -856,7 +852,7 @@ export default function EcommerceWorkflow() {
                 <span className="text-lime-400 text-sm font-medium">What We Can Help You With</span>
               </div>
               <h1 className="text-4xl md:text-5xl text-white lg:text-6xl xl:text-7xl font-bold leading-tight max-w-5xl mx-auto">
-                A Team Of Web Design Experts That Can Help You Design And Build A Website You're Proud Of
+                A Team Of E-commerce Experts That Can Help You Build And Launch Online Stores You're Proud Of
               </h1>
             </div>
 
@@ -882,12 +878,18 @@ export default function EcommerceWorkflow() {
               ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="text-center mb-16">
-              <button className="group inline-flex items-center gap-3 px-8 py-4 bg-lime-400 text-black font-semibold rounded-full hover:bg-lime-300 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-lime-400/25">
-                Get In Touch Today
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+             {/* CTA Button */}
+            <div className="text-center mb-16 flex justify-center">
+                <div className="hidden items-center gap-3 md:flex relative ">
+          <Button 
+  onClick={() => navigate("/contact")}
+  className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-5 font-bold"
+>
+  Get In Touch Today
+</Button>
+
+            <img src="/Arrow 1-1.svg" alt="arrow" className="p-4 rounded-full bg-lime-300 text-brand-ink absolute left-40 " />
+        </div>
             </div>
           </div>
         </div>
@@ -982,7 +984,7 @@ export default function EcommerceWorkflow() {
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-                Our Favorite Web Design Projects
+                Our Favorite E-commerce Projects
               </h2>
               <div className="flex gap-4">
                 <button

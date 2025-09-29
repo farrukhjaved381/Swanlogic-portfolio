@@ -56,7 +56,7 @@ export function TeamSection() {
                 <div className="absolute inset-x-3 -bottom-2 transform translate-y-full opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
                   <div className="rounded-xl bg-white p-4 shadow-lg border border-gray-100">
                     {/* Purple icon circle */}
-                    <div className="absolute -top-52 right-4 w-16 h-16  bg-purple-500 rounded-full flex items-center justify-center">
+                    <div className="absolute -top-52 right-4 w-16 h-16  bg-brand-purple rounded-full flex items-center justify-center">
                       <img src={arrow} alt="Arrow" className="" />
                     </div>
                     
@@ -69,11 +69,16 @@ export function TeamSection() {
           ))}
         </div>
 
-        <div className="text-center">
-          <Button className="bg-lime-400 font-semibold text-black hover:bg-lime-500 px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base">
-            View All Team
-            <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-          </Button>
+        <div className="text-center justify-center flex">
+           <div className="hidden lg:flex items-center gap-3 relative">
+                        <Button 
+                          // onClick={() => navigate("/services")}
+                          className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-5 font-bold"
+                        >
+                          View All Services
+                        </Button>
+                        <img src="/Arrow 1-1.svg" alt="arrow" className="p-3 rounded-full bg-lime-300 text-brand-ink absolute left-36" />                                 
+                      </div>
         </div>
       </div>
     </section>

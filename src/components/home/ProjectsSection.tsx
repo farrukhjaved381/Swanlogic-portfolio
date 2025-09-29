@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 type Project = {
   id: number;
@@ -37,6 +39,7 @@ const projects: Project[] = [
 ];
 
 export default function ProjectsSection() {
+  const navigate = useNavigate();
   return (
     <section className="container-px mx-auto max-w-[1400px] space-y-12 py-24">
       <h2 className="max-w-3xl text-5xl leading-tight sm:text-6xl">Take a look at our projects</h2>
@@ -68,7 +71,19 @@ export default function ProjectsSection() {
                 {project.title}
               </h3>
             </div>
+            {/* Desktop CTA */}
+                      <div className="hidden md:flex items-center gap-3 relative">
+                        <Button 
+                          onClick={() => navigate("/quote")}
+                          className="flex !text-brand-ink items-center gap-2 rounded-full bg-lime-300 px-6 py-5 font-bold"
+                        >
+                          More About Us
+                        </Button>
+                        <img src="/Arrow 1-1.svg" alt="arrow" className="p-4 rounded-full bg-lime-300 text-brand-ink absolute left-32" />
+                        <img src="/maskArrow.svg" alt="bend arrow" className="absolute top-32 left-60" />
+                      </div>
           </article>
+          
         ))}
       </div>
     </section>
